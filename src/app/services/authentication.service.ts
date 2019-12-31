@@ -12,6 +12,7 @@ export interface JwtToken {
 }
 
 export interface UserFromJwt {
+  id: string;
   email: string;
   isAdmin: boolean;
   isManager: boolean;
@@ -32,18 +33,29 @@ export class AuthenticationService {
     const tokenFromStorage = JSON.parse(localStorage.getItem(JWT_KEY_LOCAL_STORAGE));
     this.currentUserSubject = new BehaviorSubject<JwtToken>(tokenFromStorage);
     this.currentUser = this.currentUserSubject.asObservable();
-    this.userInfoSubject = new BehaviorSubject<UserFromJwt>(AuthenticationService.convertJwtToEntity(tokenFromStorage.token));
+    this.userInfoSubject = new BehaviorSubject<UserFromJwt>(
+      AuthenticationService.convertJwtToEntity(tokenFromStorage ? tokenFromStorage.token : null));
     this.currentUserInfo = this.userInfoSubject.asObservable();
   }
 
   private static convertJwtToEntity(token: string): UserFromJwt {
+    if (token == null) {
+      return {id: '', email: '', isAdmin: false, isManager: false, roles: []};
+    }
     const tokenInBase64Url = token.split('.')[1];
     const tokenInBase64 = tokenInBase64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const tokenAsJsonPayload = decodeURIComponent(atob(tokenInBase64).split('').map(function(c) {
+    const tokenAsJsonPayload = decodeURIComponent(atob(tokenInBase64).split('').map((c) => {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
 
-    return JSON.parse(tokenAsJsonPayload);
+    const parsedToken = JSON.parse(tokenAsJsonPayload);
+    return {
+      id: parsedToken.id,
+      email: parsedToken.sub,
+      isAdmin: parsedToken.isAdmin,
+      isManager: false,
+      roles: parsedToken.roles.split(',')
+    };
   }
 
   public get currentUserValue() {
@@ -67,6 +79,7 @@ export class AuthenticationService {
 
   logout() {
     // remove user from local storage and set current user to null
+    console.log('in logout');
     localStorage.removeItem(JWT_KEY_LOCAL_STORAGE);
     this.currentUserSubject.next(null);
     location.reload();

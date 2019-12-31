@@ -1,12 +1,12 @@
-import {User} from './user';
-
 export interface Hours {
   id: string;
   createdAt: Date;
   updatedAt: Date;
   notes: string;
   date: Date;
-  loggedHours: number;
+  loggedHours: bigint;
   tags: string;
-  user: User;
+  userEmail: string;
+  userName: string;
+  userId: string;
 }

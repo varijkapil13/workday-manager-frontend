@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import {AuthenticationService} from '../../services/authentication.service';
+import {SidebarLinkValues} from '../../helpers/AppConfiguration';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
               private authenticationService: AuthenticationService) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/users']);
+      this.router.navigate([SidebarLinkValues.home.link]);
     }
   }
 
