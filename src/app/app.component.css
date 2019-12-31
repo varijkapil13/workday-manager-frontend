@@ -35,7 +35,7 @@ p {
 
 
 .content {
-  min-height: 75vh;
+  min-height: 80vh;
   margin: 32px auto;
   padding: 0 16px;
   max-width: 100%;
@@ -47,7 +47,7 @@ footer {
   display: flex;
   align-items: center;
   line-height: 20px;
-  height: 10%;
+  height: 5%;
 }
 
 footer a {
