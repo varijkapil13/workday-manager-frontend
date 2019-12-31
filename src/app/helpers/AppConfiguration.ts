@@ -4,6 +4,8 @@ const baseApiUrl = 'http://localhost:8080';
 export const ApiUrls = {
   login: baseApiUrl + '/authenticate',
   workdays: baseApiUrl + '/api/workdays',
+  overtimes: baseApiUrl + '/api/overtimes',
+  holidays: baseApiUrl + '/api/holidays',
 };
 
 export const SidebarLinkValues = {

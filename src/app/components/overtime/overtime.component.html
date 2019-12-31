@@ -1,1 +1,37 @@
-<p>overtime works!</p>
+<div class="table-container">
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.userName}} </mat-cell>
+    </ng-container>
+
+    <!-- User Email Column -->
+    <ng-container matColumnDef="userEmail">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> User Email</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.userEmail}} </mat-cell>
+    </ng-container>
+
+    <!-- Hours Column -->
+    <ng-container matColumnDef="hours">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Hours</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.hours}} </mat-cell>
+    </ng-container>
+
+    <!-- Last Updated  Column -->
+    <ng-container matColumnDef="updatedAt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Last Updated</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.updatedAt}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
+
+</div>
+<div>
+  <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
+</div>
+

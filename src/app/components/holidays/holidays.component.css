@@ -1,0 +1,12 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.table-container {
+  max-height: 75vh;
+  overflow: auto;
+}
