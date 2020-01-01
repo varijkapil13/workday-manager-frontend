@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error: string;
+  hide: boolean = true;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,

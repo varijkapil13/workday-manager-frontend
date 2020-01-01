@@ -10,17 +10,29 @@ import {HolidaysComponent} from '../components/holidays/holidays.component';
 import {ProfileComponent} from '../components/profile/profile.component';
 import {ReportsComponent} from '../components/reports/reports.component';
 import {UserComponent} from '../components/user/user.component';
+import {AuthenticatedLayoutComponent} from '../components/layouts/authenticated-layout/authenticated-layout.component';
+import {LoginLayoutComponent} from '../components/layouts/login-layout/login-layout.component';
 
 const routes: Routes = [
-  {path: SidebarLinkValues.home.link, component: HoursComponent, canActivate: [AuthGuard]},
-  {path: 'login', component: LoginComponent},
-  {path: SidebarLinkValues.hours.link, component: HoursComponent, canActivate: [AuthGuard]},
-  {path: SidebarLinkValues.overtime.link, component: OvertimeComponent, canActivate: [AuthGuard]},
-  {path: SidebarLinkValues.leaves.link, component: LeavesComponent, canActivate: [AuthGuard]},
-  {path: SidebarLinkValues.holidays.link, component: HolidaysComponent, canActivate: [AuthGuard]},
-  {path: SidebarLinkValues.profile.link, component: ProfileComponent, canActivate: [AuthGuard]},
-  {path: SidebarLinkValues.users.link, component: UserComponent, canActivate: [AuthGuard]},
-  {path: SidebarLinkValues.reports.link, component: ReportsComponent, canActivate: [AuthGuard]},
+  {
+    path: '', component: AuthenticatedLayoutComponent, canActivate: [AuthGuard], children: [
+      {path: SidebarLinkValues.home.link, component: HoursComponent, canActivate: [AuthGuard]},
+      {path: SidebarLinkValues.hours.link, component: HoursComponent, canActivate: [AuthGuard]},
+      {path: SidebarLinkValues.overtime.link, component: OvertimeComponent, canActivate: [AuthGuard]},
+      {path: SidebarLinkValues.leaves.link, component: LeavesComponent, canActivate: [AuthGuard]},
+      {path: SidebarLinkValues.holidays.link, component: HolidaysComponent, canActivate: [AuthGuard]},
+      {path: SidebarLinkValues.profile.link, component: ProfileComponent, canActivate: [AuthGuard]},
+      {path: SidebarLinkValues.users.link, component: UserComponent, canActivate: [AuthGuard]},
+      {path: SidebarLinkValues.reports.link, component: ReportsComponent, canActivate: [AuthGuard]},
+    ]
+  },
+  {
+    path: '', component: LoginLayoutComponent, children: [
+      {path: 'login', component: LoginComponent}
+    ]
+  },
+  {path: '**', redirectTo: ''}
+
 ];
 
 @NgModule({

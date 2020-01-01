@@ -18,8 +18,12 @@ import {UserComponent} from './components/user/user.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {OvertimeComponent} from './components/overtime/overtime.component';
 import {ReportsComponent} from './components/reports/reports.component';
-// Syncfusion schedular
+// Syncfusion scheduler
 import {RecurrenceEditorModule, ScheduleModule} from '@syncfusion/ej2-angular-schedule';
+// Syncfusion scheduler
+import {LoginLayoutComponent} from './components/layouts/login-layout/login-layout.component';
+import {AuthenticatedLayoutComponent} from './components/layouts/authenticated-layout/authenticated-layout.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,9 @@ import {RecurrenceEditorModule, ScheduleModule} from '@syncfusion/ej2-angular-sc
     HolidaysComponent,
     ProfileComponent,
     OvertimeComponent,
-    ReportsComponent
+    ReportsComponent,
+    LoginLayoutComponent,
+    AuthenticatedLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +49,7 @@ import {RecurrenceEditorModule, ScheduleModule} from '@syncfusion/ej2-angular-sc
     HttpClientModule,
     ScheduleModule,
     RecurrenceEditorModule,
+    FlexLayoutModule,
   ],
 
   providers: [
