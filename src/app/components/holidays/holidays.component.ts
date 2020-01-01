@@ -13,7 +13,7 @@ export class HolidaysComponent implements OnInit {
 
   hours: Holiday[] = [];
   dataSource: MatTableDataSource<Holiday>;
-  displayedColumns: string[] = ['date', 'name', 'updatedAt'];
+  displayedColumns: string[] = ['date', 'notes', 'updatedAt'];
   currentlyLoggedInUser: UserFromJwt;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

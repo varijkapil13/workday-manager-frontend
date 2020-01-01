@@ -18,6 +18,8 @@ import {UserComponent} from './components/user/user.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {OvertimeComponent} from './components/overtime/overtime.component';
 import {ReportsComponent} from './components/reports/reports.component';
+// Syncfusion schedular
+import {RecurrenceEditorModule, ScheduleModule} from '@syncfusion/ej2-angular-schedule';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import {ReportsComponent} from './components/reports/reports.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ScheduleModule,
+    RecurrenceEditorModule,
   ],
 
   providers: [

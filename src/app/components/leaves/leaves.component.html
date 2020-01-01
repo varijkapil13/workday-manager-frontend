@@ -1,1 +1,37 @@
-<p>leaves works!</p>
+<div class="table-container">
+
+  <ejs-schedule #scheduleObj width='100%' height='100%' [selectedDate]="selectedDate" cssClass='timeline-resource'
+                [group]="group" [eventSettings]="eventSettings"
+                (renderCell)="onRenderCell($event)" (eventRendered)="onEventRendered($event)">
+    <e-header-rows>
+      <e-header-row option='Month'>
+        <ng-template #template let-data>
+          <span [innerHTML]="getMonthDetails(data)"></span>
+        </ng-template>
+      </e-header-row>
+      <e-header-row option='Week'>
+        <ng-template #template let-data>
+          <span [innerHTML]="getWeekDetails(data)"></span>
+        </ng-template>
+      </e-header-row>
+      <e-header-row option='Date'></e-header-row>
+    </e-header-rows>
+    <e-resources>
+      <e-resource field='userId' title='User' [dataSource]='categoryDataSource' [allowMultiple]='allowMultiple'
+                  name='Users'
+                  textField='text' idField='id' colorField='color'>
+      </e-resource>
+    </e-resources>
+    <ng-template #resourceHeaderTemplate let-data>
+      <div class='template-wrap'>
+        <div class="name">{{data.resourceData.fullName}}</div>
+        <div class="type">{{data.resourceData.leavesAllowed}}</div>
+        <div class="capacity">{{data.resourceData.leavesTaken}}</div>
+        <div class="capacity">{{data.resourceData.leavesCarriedOverFromLastYear}}</div>
+      </div>
+    </ng-template>
+    <e-views>
+      <e-view displayName='Timeline Month' option='TimelineMonth' [interval]="monthInterval"></e-view>
+    </e-views>
+  </ejs-schedule>
+</div>

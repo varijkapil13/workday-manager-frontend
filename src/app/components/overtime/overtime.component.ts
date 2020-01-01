@@ -13,7 +13,7 @@ export class OvertimeComponent implements OnInit {
 
   hours: Overtime[] = [];
   dataSource: MatTableDataSource<Overtime>;
-  displayedColumns: string[] = ['name', 'userEmail', 'hours', 'updatedAt'];
+  displayedColumns: string[] = ['userName', 'userEmail', 'hours', 'updatedAt'];
   currentlyLoggedInUser: UserFromJwt;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

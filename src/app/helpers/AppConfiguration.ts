@@ -6,6 +6,7 @@ export const ApiUrls = {
   workdays: baseApiUrl + '/api/workdays',
   overtimes: baseApiUrl + '/api/overtimes',
   holidays: baseApiUrl + '/api/holidays',
+  leaves: baseApiUrl + '/api/leaves',
 };
 
 export const SidebarLinkValues = {

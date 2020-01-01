@@ -13,7 +13,7 @@ export class HoursComponent implements OnInit {
 
   hours: Hours[] = [];
   dataSource: MatTableDataSource<Hours>;
-  displayedColumns: string[] = ['name', 'hours', 'date', 'tags', 'notes'];
+  displayedColumns: string[] = ['userName', 'loggedHours', 'date', 'tags', 'notes'];
   currentlyLoggedInUser: UserFromJwt;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -25,6 +25,18 @@ export class HoursComponent implements OnInit {
 
   ngOnInit() {
     this.fetchData();
+  }
+
+  removeDuplicates(tags: string, join: boolean = true) {
+    const splitTags = tags.split(',');
+    const removedDuplicates = splitTags.map(item => item.trim()).filter((elem, index, self) => {
+      return index === self.indexOf(elem);
+    });
+    if (join) {
+      return removedDuplicates.join(',');
+    } else {
+      return removedDuplicates;
+    }
   }
 
 
