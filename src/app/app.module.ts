@@ -21,7 +21,6 @@ import {ReportsComponent} from './components/reports/reports.component';
 // Syncfusion scheduler
 import {RecurrenceEditorModule, ScheduleModule} from '@syncfusion/ej2-angular-schedule';
 // Syncfusion scheduler
-import {LoginLayoutComponent} from './components/layouts/login-layout/login-layout.component';
 import {AuthenticatedLayoutComponent} from './components/layouts/authenticated-layout/authenticated-layout.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -36,7 +35,6 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     ProfileComponent,
     OvertimeComponent,
     ReportsComponent,
-    LoginLayoutComponent,
     AuthenticatedLayoutComponent
   ],
   imports: [
@@ -44,12 +42,12 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     BrowserAnimationsModule,
     CustomMaterialModule,
     FormsModule,
-    AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     ScheduleModule,
     RecurrenceEditorModule,
     FlexLayoutModule,
+    AppRoutingModule,
   ],
 
   providers: [

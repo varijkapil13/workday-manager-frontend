@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import {AuthenticationService} from '../../services/authentication.service';
 import {SidebarLinkValues} from '../../helpers/AppConfiguration';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private snackBar: MatSnackBar) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
       this.router.navigate([SidebarLinkValues.home.link]);
@@ -60,7 +62,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate([this.returnUrl]);
       },
       error => {
-        this.error = error;
+        this.snackBar.open(error, null, {verticalPosition: 'bottom', duration: 3, politeness: 'assertive'});
         this.loading = false;
       });
   }
