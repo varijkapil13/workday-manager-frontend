@@ -4,6 +4,7 @@ import {AuthenticationService, UserFromJwt} from '../../services/authentication.
 import {HolidaysService} from '../../services/holidays/holidays.service';
 import {Holiday} from '../../types/holiday';
 import {HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
+import * as DateHoliday from 'date-holidays';
 
 @Component({
   selector: 'app-holidays',
@@ -12,9 +13,13 @@ import {HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-
 })
 export class HolidaysComponent implements OnInit {
 
-  hours: Holiday[] = [];
+  holidays: Holiday[] = [];
+  publicHolidays: any[] = [];
   dataSource: MatTableDataSource<Holiday>;
+  publicHolidaysDataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['date', 'notes', 'updatedAt'];
+  publicHolidaysDisplayedColumns: string[] = ['date', 'name'];
+  publicHolidaysDisplayedColumnsForAdmins: string[] = ['addToCompany', 'date', 'name'];
   currentlyLoggedInUser: UserFromJwt;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -26,18 +31,28 @@ export class HolidaysComponent implements OnInit {
 
   ngOnInit() {
     this.fetchData();
+    this.setupPublicHolidays();
   }
 
   fetchData() {
     this.holidaysService.fetchAllHolidaysInCurrentYear().subscribe(response => {
       for (const data of response.body) {
-        this.hours.push(data);
+        this.holidays.push(data);
       }
-      this.dataSource = new MatTableDataSource(this.hours);
+      this.dataSource = new MatTableDataSource(this.holidays);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
 
+  }
+
+  setupPublicHolidays() {
+    if (this.authenticationService.isCurrentUserPrivileged) {
+      this.publicHolidaysDisplayedColumns = this.publicHolidaysDisplayedColumnsForAdmins;
+    }
+    const dateHolidays = new DateHoliday({country: 'DE', state: 'BY'});
+    this.publicHolidays = dateHolidays.getHolidays(new Date().getFullYear());
+    this.publicHolidaysDataSource = new MatTableDataSource<any>(this.publicHolidays);
   }
 
   onAddHolidaysClick() {

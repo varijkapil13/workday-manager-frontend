@@ -24,6 +24,7 @@
     "@angular/router": "~8.2.14",
     "@syncfusion/ej2-angular-schedule": "^17.4.39",
     "@syncfusion/ej2-material-theme": "~17.3.9",
+    "date-holidays": "^1.4.12",
     "hammerjs": "^2.0.8",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",

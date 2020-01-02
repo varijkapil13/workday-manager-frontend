@@ -27,3 +27,7 @@ h2.page-title {
   margin-left: 0.50em;
   padding-top: 0.50em;
 }
+
+.mat-card.page-header {
+  padding-right: 20px;
+}

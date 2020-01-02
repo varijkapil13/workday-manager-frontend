@@ -15,4 +15,5 @@ export class HolidaysService {
   public fetchAllHolidaysInCurrentYear(): Observable<HttpResponse<Holiday[]>> {
     return this.http.get<Holiday[]>(`${ApiUrls.holidays}/currentYear`, {observe: 'response'});
   }
+
 }

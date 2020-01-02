@@ -66,6 +66,11 @@ export class AuthenticationService {
     return this.userInfoSubject.value;
   }
 
+  public get isCurrentUserPrivileged() {
+    const userFromJwt = this.currentUserInfoValue;
+    return userFromJwt.isAdmin || userFromJwt.isManager;
+  }
+
   public login(username, password) {
     return this.http.post<JwtToken>(ApiUrls.login, {username, password})
     .pipe(map(user => {
