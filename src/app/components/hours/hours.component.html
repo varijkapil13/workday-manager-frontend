@@ -1,8 +1,12 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Hours</mat-card-title>
-  </mat-card-header>
-</mat-card>
+<div class="mat-card" fxLayout="row" fxLayoutAlign="space-between center">
+  <h2 class="page-title">
+    Hours
+  </h2>
+  <div>
+    <app-file-uploader (complete)="onFileComplete($event)"></app-file-uploader>
+  </div>
+
+</div>
 <div class="table-container">
   <mat-table [dataSource]="dataSource" matSort>
 

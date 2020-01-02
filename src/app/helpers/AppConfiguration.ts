@@ -14,7 +14,7 @@ export const SidebarLinkValues = {
   hours: {link: 'hours', name: 'Hours', icon: 'access_time'},
   leaves: {link: 'leaves', name: 'Leaves', icon: 'flight_takeoff'},
   holidays: {link: 'holidays', name: 'Holidays', icon: 'favorite'},
-  overtime: {link: 'overtime', name: 'Overtime', icon: 'thumb_down'},
+  overtime: {link: 'overtime', name: 'Overtime', icon: 'attach_money'},
   profile: {link: 'profile', name: 'Profile', icon: 'account_circle'},
   users: {link: 'users', name: 'Users', icon: 'supervisor_account'},
   reports: {link: 'reports', name: 'Reports', icon: 'bar_chart'},

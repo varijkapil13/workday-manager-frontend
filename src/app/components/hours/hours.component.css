@@ -2,6 +2,16 @@ table {
   width: 100%;
 }
 
+.spacer {
+  flex: 1;
+}
+
+h2.page-title {
+  margin-top: 0;
+  margin-left: 0.50em;
+  padding-top: 0.50em;
+}
+
 th.mat-sort-header-sorted {
   color: black;
 }
