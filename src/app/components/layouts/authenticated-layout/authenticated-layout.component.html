@@ -11,13 +11,14 @@
       <mat-list-item role="button" *ngFor="let link of sidebarLinks">
         <button class="btn vertical" mat-button [matTooltip]="link.name" [routerLink]=" '/' + link.link">
           <mat-icon fontSet="material-icons-round" aria-hidden="false" color="primary">{{link.icon}}</mat-icon>
-
         </button>
+        <mat-divider></mat-divider>
       </mat-list-item>
       <mat-list-item role="button">
         <button mat-button matTooltip="Logout" (click)="logout()">
           <mat-icon fontSet="material-icons-round" aria-hidden="false" color="warn">power_settings_new</mat-icon>
         </button>
+        <mat-divider></mat-divider>
       </mat-list-item>
     </mat-list>
 
