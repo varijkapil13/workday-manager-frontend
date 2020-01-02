@@ -14,6 +14,8 @@ import {
 import {extend, Internationalization} from '@syncfusion/ej2-base';
 import {LeavesService} from '../../services/leaves/leaves.service';
 import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
+import {MatDialog} from '@angular/material';
+import {HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
 
 
 @Component({
@@ -63,8 +65,18 @@ export class LeavesComponent implements OnInit {
   }
 
 
-  constructor(private leavesService: LeavesService, private authenticationService: AuthenticationService) {
+  constructor(private leavesService: LeavesService, private authenticationService: AuthenticationService, public dialog: MatDialog) {
     this.currentlyLoggedUser = this.authenticationService.currentUserInfoValue;
+  }
+
+  onAddLeavesClick() {
+    this.dialog.open(HolidaysLeavesDialogComponent, {
+      data: {
+        type: 'leaves',
+        name: 'Add Leaves',
+        userId: '46576879tufjchgvhobv8c458ity76986ir7666r75669r767rt7ituf'
+      }, role: 'dialog'
+    });
   }
 
   ngOnInit() {

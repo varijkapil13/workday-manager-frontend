@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>{{data.name}}</h2>
+<form [formGroup]="dialogForm" (ngSubmit)="onSubmit()" class="dialog-form">
+  <mat-dialog-content>
+    <mat-form-field class="form-field-full-width" appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput type=" text" formControlName="title" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted && formControls.title.errors }" required/>
+      <mat-error *ngIf="formControls.title.errors && formControls.title.errors.required"> Title is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-full-width">
+      <input matInput [matDatepickerFilter]="datepickerFilter" formControlName="startDate"
+             [matDatepicker]="startDatePicker"
+             placeholder="Choose a {{isLeavesDialog ? 'start' : ''}} date" required>
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker disabled="false"></mat-datepicker>
+      <mat-error *ngIf="formControls.startDate.errors && formControls.startDate.errors.required"> {{isLeavesDialog ?
+        'Start' : ''}} Date is
+        required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="isLeavesDialog" class="form-field-full-width">
+      <input matInput [matDatepickerFilter]="datepickerFilter" formControlName="endDate" [matDatepicker]="endDatePicker"
+             placeholder="Choose an end date">
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-radio-group class="dialog-radio-group" aria-label="Select leaves type" [(ngModel)]="selectedLeaveType"
+                     *ngIf="isLeavesDialog">
+      <label id="radio-group-label">Leave Type</label>
+      <mat-radio-button aria-labelledby="radio-group-label" class="dialog-radio-button" *ngFor="let leave of leaveTypes"
+                        [value]="leave.key"
+                        [checked]="selectedLeaveType === leave.key">
+        {{leave.name}}
+      </mat-radio-button>
+    </mat-radio-group>
+
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-flat-button mat-dialog-close color="warn" type="button">Cancel</button>
+    <button mat-flat-button color="primary" type="submit" cdkFocusInitial>Save</button>
+  </mat-dialog-actions>
+</form>
+

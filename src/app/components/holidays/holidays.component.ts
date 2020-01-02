@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
 import {HolidaysService} from '../../services/holidays/holidays.service';
 import {Holiday} from '../../types/holiday';
+import {HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
 
 @Component({
   selector: 'app-holidays',
@@ -19,7 +20,7 @@ export class HolidaysComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private holidaysService: HolidaysService, private authenticationService: AuthenticationService) {
+  constructor(private holidaysService: HolidaysService, private authenticationService: AuthenticationService, public dialog: MatDialog) {
     this.currentlyLoggedInUser = this.authenticationService.currentUserInfoValue;
   }
 
@@ -37,6 +38,16 @@ export class HolidaysComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     });
 
+  }
+
+  onAddHolidaysClick() {
+    this.dialog.open(HolidaysLeavesDialogComponent, {
+      data: {
+        type: 'holidays',
+        name: 'Add Holidays',
+        userId: '46576879tufjchgvhobv8c458ity76986ir7666r75669r767rt7ituf'
+      }, role: 'dialog'
+    });
   }
 
 }

@@ -23,8 +23,13 @@ import {RecurrenceEditorModule, ScheduleModule} from '@syncfusion/ej2-angular-sc
 // Syncfusion scheduler
 import {AuthenticatedLayoutComponent} from './components/layouts/authenticated-layout/authenticated-layout.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {FileUploaderComponent} from './components/file-uploader/file-uploader.component';
+import {HolidaysLeavesDialogComponent} from './components/holidays-leaves-dialog/holidays-leaves-dialog.component';
 
 @NgModule({
+  entryComponents: [
+    HolidaysLeavesDialogComponent,
+  ],
   declarations: [
     AppComponent,
     LoginComponent,
@@ -35,7 +40,9 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     ProfileComponent,
     OvertimeComponent,
     ReportsComponent,
-    AuthenticatedLayoutComponent
+    AuthenticatedLayoutComponent,
+    FileUploaderComponent,
+    HolidaysLeavesDialogComponent
   ],
   imports: [
     BrowserModule,
