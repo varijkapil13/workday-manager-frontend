@@ -1,1 +1,88 @@
-<p>profile works!</p>
+<div class="mat-card page-header" fxLayout="row" fxLayoutAlign="space-between center">
+  <h2 class="page-title">
+    Profile
+  </h2>
+</div>
+<div class="mat-card" fxFill fxLayout="row">
+  <!--  User Information -->
+  <div fxFlex="50">
+    <mat-card class="mat-elevation-z3">
+      <mat-card-title>
+        <mat-card-title> Varij Kapil</mat-card-title>
+        <mat-card-subtitle>{{userInfo.email}}</mat-card-subtitle>
+      </mat-card-title>
+      <mat-card-content>
+        <mat-chip-list>
+          <mat-chip *ngFor="let role of userInfo.roles">
+            {{role.replace("ROLE_", '')}}
+          </mat-chip>
+        </mat-chip-list>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-mini-fab>
+          <mat-icon fontSet="material-icons-round">
+            edit
+          </mat-icon>
+        </button>
+        <button color="warn" mat-mini-fab>
+          <mat-icon fontSet="material-icons-round">
+            delete
+          </mat-icon>
+        </button>
+      </mat-card-actions>
+
+    </mat-card>
+
+  </div>
+  <!--  User Information -->
+  <div fxFlex="50" fxLayout="column" fxLayoutAlign="space-evenly start">
+    <button (click)="showPasswordForm = !showPasswordForm" color="accent" mat-flat-button>Change Password</button>
+    <div *ngIf="showPasswordForm">
+      <form (ngSubmit)="changePassword()" [formGroup]="changePasswordForm" fxLayout="column"
+            fxLayoutAlign="space-evenly start">
+        <mat-form-field appearance="fill">
+          <mat-label>Old Password</mat-label>
+          <input [ngClass]="{'is-invalid': formControls.oldPassword.errors}" formControlName="oldPassword" matInput
+                 placeholder="Old Password" required
+                 type="password">
+          <mat-error *ngIf="formControls.oldPassword.errors && formControls.oldPassword.errors.required"> Old Password
+            is required
+          </mat-error>
+
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>New Password</mat-label>
+          <input [ngClass]="{'is-invalid': formControls.newPassword.errors}" formControlName="newPassword" matInput
+                 placeholder="New Password" required
+                 type="password">
+          <mat-error *ngIf="formControls.newPassword.errors && formControls.newPassword.errors.required"> Password is
+            required
+          </mat-error>
+          <mat-error *ngIf="formControls.newPassword.errors && formControls.newPassword.errors.minlength"> Password
+            should be atleast 6 character long
+          </mat-error>
+          <mat-error *ngIf="formControls.newPassword.errors && formControls.newPassword.errors.MatchPassword"> Passwords
+            do not match
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Repeat New Password</mat-label>
+          <input [ngClass]="{'is-invalid': formControls.repeatNewPassword.errors}" formControlName="repeatNewPassword"
+                 matInput placeholder="Repeat New Password" required
+                 type="password">
+          <mat-error *ngIf="formControls.repeatNewPassword.errors && formControls.repeatNewPassword.errors.required">
+            Password is required
+          </mat-error>
+          <mat-error *ngIf="formControls.repeatNewPassword.errors && formControls.repeatNewPassword.errors.minlength">
+            Password should be atleast 6 character long
+          </mat-error>
+          <mat-error *ngIf="formControls.repeatNewPassword.errors &&
+          formControls.repeatNewPassword.errors.MatchPassword"> Passwords do not match
+          </mat-error>
+        </mat-form-field>
+        <button color="warn" mat-flat-button>Change</button>
+      </form>
+    </div>
+  </div>
+  <!--  Change Password-->
+</div>
