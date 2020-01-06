@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthenticationService} from './services/authentication.service';
+import {SidebarLinkValues} from './helpers/AppConfiguration';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,8 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    // not logged in so redirect to login page with the return url
-    this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
+    // not logged in therefore, redirect to login page with the return url
+    this.router.navigate([SidebarLinkValues.login.link], {queryParams: {returnUrl: state.url}});
     return false;
   }
 

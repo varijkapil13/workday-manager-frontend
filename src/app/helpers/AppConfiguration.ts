@@ -11,6 +11,7 @@ export const ApiUrls = {
 };
 
 export const SidebarLinkValues = {
+  login: {link: 'login', name: 'Login', icon: 'home'},
   home: {link: '', name: 'Home', icon: 'home'},
   hours: {link: 'hours', name: 'Hours', icon: 'access_time'},
   leaves: {link: 'leaves', name: 'Leaves', icon: 'flight_takeoff'},
