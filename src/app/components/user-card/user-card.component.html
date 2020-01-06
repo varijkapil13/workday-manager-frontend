@@ -4,17 +4,17 @@
 
     <mat-card-title> {{user.fullname}}</mat-card-title>
     <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
-    <div fxFlex></div>
-    <div fxLayoutAlign="center center">
-      <mat-card-subtitle>User since: {{user.createdAt | date:"dd.MM.yyyy"}}</mat-card-subtitle>
-    </div>
+
   </mat-card-header>
   <mat-card-content>
+    <mat-card-subtitle>User since: {{user.createdAt | date:"dd.MM.yyyy"}}</mat-card-subtitle>
     <mat-chip-list>
-      <mat-chip *ngFor="let role of user.roles">
+      <mat-chip *ngFor="let role of user.roles" color="accent" selected>
         {{role.replace("ROLE_", '')}}
       </mat-chip>
     </mat-chip-list>
+
+
   </mat-card-content>
   <mat-card-actions *ngIf="showActions">
     <button (click)="onEdit()" mat-stroked-button>
