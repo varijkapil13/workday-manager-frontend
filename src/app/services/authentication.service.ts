@@ -12,11 +12,16 @@ export interface JwtToken {
 }
 
 export interface UserFromJwt {
+  fullname: string;
+  firstName: string;
+  lastName: string;
+  image: string;
   id: string;
   email: string;
   isAdmin: boolean;
   isManager: boolean;
   roles: string[];
+  createdAt: Date;
 }
 
 @Injectable({
@@ -40,7 +45,11 @@ export class AuthenticationService {
 
   private static convertJwtToEntity(token: string): UserFromJwt {
     if (token == null) {
-      return {id: '', email: '', isAdmin: false, isManager: false, roles: []};
+      return {
+        firstName: '',
+        createdAt: new Date(),
+        fullname: '', image: '', lastName: '', id: '', email: '', isAdmin: false, isManager: false, roles: []
+      };
     }
     const tokenInBase64Url = token.split('.')[1];
     const tokenInBase64 = tokenInBase64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -50,6 +59,11 @@ export class AuthenticationService {
 
     const parsedToken = JSON.parse(tokenAsJsonPayload);
     return {
+      createdAt: new Date(),
+      firstName: 'Varij',
+      fullname: 'Varij Kapil',
+      image: 'https://live.staticflickr.com/4112/5170590074_afe540141c_k.jpg',
+      lastName: 'Kapil',
       id: parsedToken.id,
       email: parsedToken.sub,
       isAdmin: parsedToken.isAdmin,

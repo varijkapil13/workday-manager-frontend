@@ -3,39 +3,13 @@
     Profile
   </h2>
 </div>
-<div class="mat-card" fxFill fxLayout="row">
+<div class="mat-card" fxFill fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="20px">
   <!--  User Information -->
   <div fxFlex="50">
-    <mat-card class="mat-elevation-z3">
-      <mat-card-title>
-        <mat-card-title> Varij Kapil</mat-card-title>
-        <mat-card-subtitle>{{userInfo.email}}</mat-card-subtitle>
-      </mat-card-title>
-      <mat-card-content>
-        <mat-chip-list>
-          <mat-chip *ngFor="let role of userInfo.roles">
-            {{role.replace("ROLE_", '')}}
-          </mat-chip>
-        </mat-chip-list>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-mini-fab>
-          <mat-icon fontSet="material-icons-round">
-            edit
-          </mat-icon>
-        </button>
-        <button color="warn" mat-mini-fab>
-          <mat-icon fontSet="material-icons-round">
-            delete
-          </mat-icon>
-        </button>
-      </mat-card-actions>
-
-    </mat-card>
-
+    <app-user-card [showActions]="false" [user]="userInfo"></app-user-card>
   </div>
   <!--  User Information -->
-  <div fxFlex="50" fxLayout="column" fxLayoutAlign="space-evenly start">
+  <div fxFlex="50" fxLayout="column" fxLayoutAlign="space-evenly start" fxLayoutGap="20px">
     <button (click)="showPasswordForm = !showPasswordForm" color="accent" mat-flat-button>Change Password</button>
     <div *ngIf="showPasswordForm">
       <form (ngSubmit)="changePassword()" [formGroup]="changePasswordForm" fxLayout="column"

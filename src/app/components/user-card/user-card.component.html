@@ -1,0 +1,34 @@
+<mat-card class="mat-elevation-z3">
+  <mat-card-header>
+    <img [alt]="user.fullname" [src]="user.image" mat-card-avatar/>
+
+    <mat-card-title> {{user.fullname}}</mat-card-title>
+    <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
+    <div fxFlex></div>
+    <div fxLayoutAlign="center center">
+      <mat-card-subtitle>User since: {{user.createdAt | date:"dd.MM.yyyy"}}</mat-card-subtitle>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-chip-list>
+      <mat-chip *ngFor="let role of user.roles">
+        {{role.replace("ROLE_", '')}}
+      </mat-chip>
+    </mat-chip-list>
+  </mat-card-content>
+  <mat-card-actions *ngIf="showActions">
+    <button (click)="onEdit()" mat-stroked-button>
+      EDIT
+      <mat-icon fontSet="material-icons-round">
+        edit
+      </mat-icon>
+    </button>
+    <button (click)="onDelete()" color="warn" mat-stroked-button>
+      DELETE
+      <mat-icon fontSet="material-icons-round">
+        delete
+      </mat-icon>
+    </button>
+  </mat-card-actions>
+
+</mat-card>

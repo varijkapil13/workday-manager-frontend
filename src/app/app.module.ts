@@ -25,6 +25,7 @@ import {AuthenticatedLayoutComponent} from './components/layouts/authenticated-l
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FileUploaderComponent} from './components/file-uploader/file-uploader.component';
 import {HolidaysLeavesDialogComponent} from './components/holidays-leaves-dialog/holidays-leaves-dialog.component';
+import {UserCardComponent} from './components/user-card/user-card.component';
 
 @NgModule({
   entryComponents: [
@@ -42,7 +43,8 @@ import {HolidaysLeavesDialogComponent} from './components/holidays-leaves-dialog
     ReportsComponent,
     AuthenticatedLayoutComponent,
     FileUploaderComponent,
-    HolidaysLeavesDialogComponent
+    HolidaysLeavesDialogComponent,
+    UserCardComponent
   ],
   imports: [
     BrowserModule,
