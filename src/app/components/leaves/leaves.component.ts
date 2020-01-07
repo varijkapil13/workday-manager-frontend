@@ -1,14 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {
   CellTemplateArgs,
-  DayService,
-  DragAndDropService,
   EventRenderedArgs,
   EventSettingsModel,
-  getWeekNumber,
   GroupModel,
   RenderCellEventArgs,
-  ResizeService,
+  ScheduleComponent,
   TimelineMonthService
 } from '@syncfusion/ej2-angular-schedule';
 import {extend, Internationalization} from '@syncfusion/ej2-base';
@@ -16,18 +13,24 @@ import {LeavesService} from '../../services/leaves/leaves.service';
 import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
 import {MatDialog} from '@angular/material';
 import {HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
+import {getWeekNumber} from '../../helpers/utils';
+import {EventClickArgs} from '@syncfusion/ej2-schedule/src/schedule/base/interface';
 
 
 @Component({
   selector: 'app-leaves',
-  providers: [TimelineMonthService, DayService, ResizeService, DragAndDropService],
+  providers: [TimelineMonthService],
   templateUrl: './leaves.component.html',
   styleUrls: ['./leaves.component.css']
 })
 export class LeavesComponent implements OnInit {
 
+  @ViewChild('scheduleObj', {static: false})
+  schedulerObject: ScheduleComponent;
+
+  firstDayOfWeek = 2;
   currentlyLoggedUser: UserFromJwt;
-  public selectedDate: Date = new Date(2019, 0, 1);
+  public selectedDate: Date = new Date();
   public eventSettings: EventSettingsModel;
   public monthInterval = 12;
   public allowMultiple = false;
@@ -80,10 +83,34 @@ export class LeavesComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.schedulerObject.firstDayOfWeek = 1;
     this.fetchData();
   }
 
   fetchData() {
+    this.categoryDataSource = [{
+      fullName: 'Varij Kapil',
+      leavesAllowed: 2,
+      leavesTaken: 23,
+      leavesCarriedOverFromLastYear: 2,
+      id: 'leave.userId'
+    }];
+    this.eventSettings = {
+      dataSource: extend([], [
+        {
+          id: 'leave.id',
+          Subject: 'leave.title',
+          StartTime: new Date(),
+          EndTime: new Date(2020, 2, 23),
+          IsAllDay: true,
+          userId: 'leave.userId'
+        }
+      ], null, true) as object[],
+      allowAdding: false,
+      allowDeleting: false,
+      allowEditing: false,
+    };
+
     this.leavesService.fetchLeavesForAllUsers().subscribe(response => {
       if (response.body) {
         const leavesData: any[] = [];
@@ -106,6 +133,10 @@ export class LeavesComponent implements OnInit {
         this.eventSettings = {dataSource: extend([], leavesData, null, true) as object[]};
       }
     });
+  }
+
+  cellClicked(event: EventClickArgs) {
+    console.log('in event click method: ', event);
   }
 
 }
