@@ -3,26 +3,10 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DIALOG_DATA, MAT_RADIO_DEFAULT_OPTION
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Leave} from '../../types/leave';
 import {AppDateAdapter, CUSTOM_DATE_FORMATS} from '../../helpers/date-format.material';
+import {LeaveTypes} from '../../types/leave-types.enum';
+import {LeavesDialogData} from '../../types/leaves-dialog-data';
+import {DialogType} from '../../types/dialog-types.enum';
 
-export enum DialogType {
-  leaves,
-  holidays,
-  approvals,
-  user,
-}
-
-export interface LeavesDialogData {
-  type: DialogType;
-  existingLeave: Leave;
-  name: string;
-  userId?: string;
-}
-
-export enum LeaveTypes {
-  leave = 'leave',
-  overtime = 'overtime',
-  sick = 'sick',
-}
 
 @Component({
   selector: 'app-holidays-leaves-dialog',

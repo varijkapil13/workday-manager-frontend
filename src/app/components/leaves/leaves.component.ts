@@ -12,11 +12,12 @@ import {extend, Internationalization} from '@syncfusion/ej2-base';
 import {LeavesService} from '../../services/leaves/leaves.service';
 import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
 import {MatDialog} from '@angular/material';
-import {DialogType, HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
+import {HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
 import {getWeekNumber} from '../../helpers/utils';
 import {EventClickArgs} from '@syncfusion/ej2-schedule/src/schedule/base/interface';
 import {Leave} from '../../types/leave';
 import {User} from '../../types/user';
+import {DialogType} from '../../types/dialog-types.enum';
 
 
 @Component({

@@ -3,8 +3,9 @@ import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/mat
 import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
 import {HolidaysService} from '../../services/holidays/holidays.service';
 import {Holiday} from '../../types/holiday';
-import {DialogType, HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
+import {HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
 import * as DateHoliday from 'date-holidays';
+import {DialogType} from '../../types/dialog-types.enum';
 
 @Component({
   selector: 'app-holidays',
