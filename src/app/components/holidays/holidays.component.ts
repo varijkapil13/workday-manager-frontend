@@ -3,7 +3,7 @@ import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/mat
 import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
 import {HolidaysService} from '../../services/holidays/holidays.service';
 import {Holiday} from '../../types/holiday';
-import {HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
+import {DialogType, HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
 import * as DateHoliday from 'date-holidays';
 
 @Component({
@@ -58,9 +58,8 @@ export class HolidaysComponent implements OnInit {
   onAddHolidaysClick() {
     this.dialog.open(HolidaysLeavesDialogComponent, {
       data: {
-        type: 'holidays',
+        type: DialogType.holidays,
         name: 'Add Holidays',
-        userId: '46576879tufjchgvhobv8c458ity76986ir7666r75669r767rt7ituf'
       }, role: 'dialog'
     });
   }

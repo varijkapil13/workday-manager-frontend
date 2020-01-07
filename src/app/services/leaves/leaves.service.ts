@@ -2,12 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUrls} from '../../helpers/AppConfiguration';
+import {LeavesCalendar} from '../../types/leaves-calendar';
 
-
-export interface LeavesCalendar {
-  leaves: any[];
-  users: any[];
-}
 
 @Injectable({
   providedIn: 'root'

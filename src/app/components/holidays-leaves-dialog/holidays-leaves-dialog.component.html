@@ -26,12 +26,12 @@
       <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
     </mat-form-field>
-    <mat-radio-group class="dialog-radio-group" aria-label="Select leaves type" [(ngModel)]="selectedLeaveType"
+    <mat-radio-group aria-label="Select leaves type" class="dialog-radio-group" formControlName="leaveType"
                      *ngIf="isLeavesDialog">
       <label id="radio-group-label">Leave Type</label>
       <mat-radio-button aria-labelledby="radio-group-label" class="dialog-radio-button" *ngFor="let leave of leaveTypes"
                         [value]="leave.key"
-                        [checked]="selectedLeaveType === leave.key">
+                        [checked]="formControls.leaveType.value === leave.key">
         {{leave.name}}
       </mat-radio-button>
     </mat-radio-group>

@@ -12,9 +12,11 @@ import {extend, Internationalization} from '@syncfusion/ej2-base';
 import {LeavesService} from '../../services/leaves/leaves.service';
 import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
 import {MatDialog} from '@angular/material';
-import {HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
+import {DialogType, HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
 import {getWeekNumber} from '../../helpers/utils';
 import {EventClickArgs} from '@syncfusion/ej2-schedule/src/schedule/base/interface';
+import {Leave} from '../../types/leave';
+import {User} from '../../types/user';
 
 
 @Component({
@@ -75,7 +77,7 @@ export class LeavesComponent implements OnInit {
   onAddLeavesClick() {
     this.dialog.open(HolidaysLeavesDialogComponent, {
       data: {
-        type: 'leaves',
+        type: DialogType.leaves,
         name: 'Add Leaves',
         userId: '46576879tufjchgvhobv8c458ity76986ir7666r75669r767rt7ituf'
       }, role: 'dialog'
@@ -98,6 +100,9 @@ export class LeavesComponent implements OnInit {
     this.eventSettings = {
       dataSource: extend([], [
         {
+          title: 'leave.title',
+          overtime: true,
+          sick: false,
           id: 'leave.id',
           Subject: 'leave.title',
           StartTime: new Date(),
@@ -113,17 +118,10 @@ export class LeavesComponent implements OnInit {
 
     this.leavesService.fetchLeavesForAllUsers().subscribe(response => {
       if (response.body) {
-        const leavesData: any[] = [];
-        const usersData: any[] = [];
+        const leavesData: Leave[] = [];
+        const usersData: User[] = [];
         for (const leave of response.body.leaves) {
-          leavesData.push({
-            id: leave.id,
-            Subject: leave.title,
-            StartTime: new Date(leave.startTime),
-            EndTime: new Date(leave.endTime),
-            IsAllDay: true,
-            userId: leave.userId
-          });
+          leavesData.push(leave);
         }
         for (const user of response.body.users) {
           usersData.push(user);
@@ -136,7 +134,16 @@ export class LeavesComponent implements OnInit {
   }
 
   cellClicked(event: EventClickArgs) {
-    console.log('in event click method: ', event);
+    console.log('in event click method: ', event.event);
+
+    this.dialog.open(HolidaysLeavesDialogComponent, {
+      data: {
+        type: DialogType.leaves,
+        name: 'Edit Leave',
+        userId: '46576879tufjchgvhobv8c458ity76986ir7666r75669r767rt7ituf',
+        existingLeave: event.event
+      }, role: 'dialog'
+    });
   }
 
 }
