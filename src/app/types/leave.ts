@@ -1,4 +1,4 @@
-export interface ILeave {
+interface ILeave {
   id: number;
   startTime: Date;
   endTime: Date;

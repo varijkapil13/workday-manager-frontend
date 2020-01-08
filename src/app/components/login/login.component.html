@@ -22,7 +22,7 @@
           <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" class="form-control"
                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }" required/>
           <button mat-icon-button matSuffix (click)="hide = !hide" type="button">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-icon fontSet="material-icons-round">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           <mat-error *ngIf="f.password.errors && f.password.errors.required"> Password is required</mat-error>
           <mat-error *ngIf="f.password.errors && f.password.errors.minlength"> Password should be atleast 6 character

@@ -26,10 +26,12 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {FileUploaderComponent} from './components/file-uploader/file-uploader.component';
 import {HolidaysLeavesDialogComponent} from './components/holidays-leaves-dialog/holidays-leaves-dialog.component';
 import {UserCardComponent} from './components/user-card/user-card.component';
+import {ApprovalsDialogComponent} from './components/approvals-dialog/approvals-dialog.component';
 
 @NgModule({
   entryComponents: [
     HolidaysLeavesDialogComponent,
+    ApprovalsDialogComponent,
   ],
   declarations: [
     AppComponent,
@@ -44,7 +46,8 @@ import {UserCardComponent} from './components/user-card/user-card.component';
     AuthenticatedLayoutComponent,
     FileUploaderComponent,
     HolidaysLeavesDialogComponent,
-    UserCardComponent
+    UserCardComponent,
+    ApprovalsDialogComponent
   ],
   imports: [
     BrowserModule,

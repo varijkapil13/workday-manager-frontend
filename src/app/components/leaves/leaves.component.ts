@@ -18,6 +18,7 @@ import {EventClickArgs} from '@syncfusion/ej2-schedule/src/schedule/base/interfa
 import {Leave} from '../../types/leave';
 import {User} from '../../types/user';
 import {DialogType} from '../../types/dialog-types.enum';
+import {ApprovalsDialogComponent} from '../approvals-dialog/approvals-dialog.component';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class LeavesComponent implements OnInit {
 
   firstDayOfWeek = 2;
   currentlyLoggedUser: UserFromJwt;
+  isCurrentUserPrivileged = false;
   public selectedDate: Date = new Date();
   public eventSettings: EventSettingsModel;
   public monthInterval = 12;
@@ -73,6 +75,7 @@ export class LeavesComponent implements OnInit {
 
   constructor(private leavesService: LeavesService, private authenticationService: AuthenticationService, public dialog: MatDialog) {
     this.currentlyLoggedUser = this.authenticationService.currentUserInfoValue;
+    this.isCurrentUserPrivileged = authenticationService.isCurrentUserPrivileged;
   }
 
   onAddLeavesClick() {
@@ -147,4 +150,20 @@ export class LeavesComponent implements OnInit {
     });
   }
 
+  openApprovalsDialog() {
+    this.dialog.open(ApprovalsDialogComponent, {
+      data: {
+        type: 'no data to send currently'
+      }
+    });
+  }
+
+  getCellContent(date: Date): string {
+    if (date.getMonth() === 2) {
+      return 'red';
+    } else {
+      return '';
+    }
+
+  }
 }

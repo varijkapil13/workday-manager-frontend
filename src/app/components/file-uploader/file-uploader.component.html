@@ -1,6 +1,6 @@
 <button (click)="onClick()" color="accent" mat-flat-button>
   {{text}}
-  <mat-icon>file_upload</mat-icon>
+  <mat-icon fontSet="material-icons-round">file_upload</mat-icon>
 </button>
 <br/>
 <ul>
@@ -9,9 +9,9 @@
     <span id="file-label">
             {{file.data.name}}
       <a title="Retry" (click)="retryFile(file)" *ngIf="file.canRetry">
-            <mat-icon>refresh</mat-icon></a>
+            <mat-icon fontSet="material-icons-round">refresh</mat-icon></a>
             <a title="Cancel" (click)="cancelFile(file)" *ngIf="file.canCancel">
-            <mat-icon>cancel</mat-icon></a>
+            <mat-icon fontSet="material-icons-round">cancel</mat-icon></a>
             </span>
   </li>
 </ul>

@@ -2,9 +2,17 @@
   <h2 class="page-title">
     Leaves
   </h2>
-  <button (click)="onAddLeavesClick()" color="accent" mat-flat-button>Add Leaves
-    <mat-icon> add</mat-icon>
-  </button>
+  <div fxLayoutGap="10px">
+
+    <button (click)="openApprovalsDialog()" *ngIf="isCurrentUserPrivileged" color="primary" mat-flat-button>Approvals
+      <mat-icon fontSet="material-icons-round">local_post_office</mat-icon>
+    </button>
+
+    <button (click)="onAddLeavesClick()" color="accent" mat-flat-button>Add Leaves
+      <mat-icon fontSet="material-icons-round"> add</mat-icon>
+    </button>
+
+  </div>
 
 
 </div>
@@ -29,6 +37,14 @@
       <!--      </e-header-row>-->
       <e-header-row option='Date'></e-header-row>
     </e-header-rows>
+
+    <ng-template #eventSettingsTemplate let-data>
+      <div [style.background]="data.SecondaryColor" class='template-wrap'>
+        <div [style.background]="data.SecondaryColor" class="subject">{{data.Subject}}</div>
+        <div class="description">Varij Kapil</div>
+      </div>
+    </ng-template>
+
     <e-resources>
       <e-resource field='userId' title='User' [dataSource]='categoryDataSource' [allowMultiple]='allowMultiple'
                   name='Users'
@@ -43,10 +59,25 @@
         <div class="capacity">{{data.resourceData.leavesCarriedOverFromLastYear}}</div>
       </div>
     </ng-template>
+
     <e-views>
       <e-view [firstDayOfWeek]="firstDayOfWeek" [interval]="monthInterval" displayName='Timeline Month'
               option='TimelineMonth'
-              showWeekNumber="true"></e-view>
+              showWeekNumber="true">
+
+        <ng-template #eventTemplate let-data>
+          <div [style.background]="data.PrimaryColor">
+            <div [style.background]="data.SecondaryColor" [style.border-color]="data.PrimaryColor"
+                 class="subject">
+              {{data.Subject}}
+            </div>
+            <div [style.background]="data.SecondaryColor" [style.border-color]="data.PrimaryColor"
+                 class="subject">
+              Pending approval
+            </div>
+          </div>
+        </ng-template>
+      </e-view>
     </e-views>
   </ejs-schedule>
 </div>
