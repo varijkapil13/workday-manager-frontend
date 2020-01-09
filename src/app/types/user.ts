@@ -5,6 +5,8 @@ export interface User {
   firstName: string;
   lastName: string;
   fullName: string;
+  createdAt: Date;
+  image: string;
   leavesAllowed: number;
   leavesTaken: number;
   leavesCarriedOverFromLastYear: number;

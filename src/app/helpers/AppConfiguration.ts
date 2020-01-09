@@ -2,12 +2,13 @@ import {UserRoles} from '../types/user-roles.enum';
 
 const baseApiUrl = 'http://localhost:8080';
 export const ApiUrls = {
-  publicHolidays: 'https://date.nager.at/api/v2/PublicHolidays',
   login: baseApiUrl + '/authenticate',
   workdays: baseApiUrl + '/api/workdays',
   overtimes: baseApiUrl + '/api/overtimes',
   holidays: baseApiUrl + '/api/holidays',
   leaves: baseApiUrl + '/api/leaves',
+  profile: baseApiUrl + '/api/profile',
+  users: baseApiUrl + '/api/users'
 };
 
 export const SidebarLinkValues = {

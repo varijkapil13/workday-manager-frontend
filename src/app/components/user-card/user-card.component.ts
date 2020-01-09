@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UserFromJwt} from '../../services/authentication.service';
+import {User} from '../../types/user';
 
 @Component({
   selector: 'app-user-card',
@@ -7,7 +7,7 @@ import {UserFromJwt} from '../../services/authentication.service';
   styleUrls: ['./user-card.component.css']
 })
 export class UserCardComponent implements OnInit {
-  @Input() user: UserFromJwt;
+  @Input() user: User;
   @Input() showActions = false;
   @Output() onEditClick = new EventEmitter();
   @Output() onDeleteClick = new EventEmitter();
@@ -26,4 +26,9 @@ export class UserCardComponent implements OnInit {
     this.onDeleteClick.emit(this.user);
   }
 
+  getInitials(fullName: string): string {
+    const splitName = fullName.split(' ');
+    const initialsArray = splitName.map(item => item.charAt(0));
+    return initialsArray.join('').toUpperCase();
+  }
 }

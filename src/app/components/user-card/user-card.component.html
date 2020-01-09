@@ -1,13 +1,42 @@
-<mat-card class="mat-elevation-z3">
+<mat-card *ngIf="user" class="mat-elevation-z3">
   <mat-card-header>
-    <img [alt]="user.fullname" [src]="user.image" mat-card-avatar/>
+    <img *ngIf="user.image.length > 5; else noAvatar" [alt]="user.fullName" [src]="user.image" mat-card-avatar/>
+    <ng-template #noAvatar>
+      <div class="mat-card-avatar profile-image-card">
+        {{getInitials(user.fullName)}}
+      </div>
+    </ng-template>
 
-    <mat-card-title> {{user.fullname}}</mat-card-title>
+    <mat-card-title> {{user.fullName}}</mat-card-title>
     <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
 
   </mat-card-header>
+  <mat-divider></mat-divider>
   <mat-card-content>
-    <mat-card-subtitle>User since: {{user.createdAt | date:"dd.MM.yyyy"}}</mat-card-subtitle>
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+        <h5>User since</h5>
+        <mat-card-subtitle> {{user.createdAt | date:"dd.MM.yyyy"}}</mat-card-subtitle>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+        <h5>Total Leaves</h5>
+        <mat-card-subtitle> {{user.leavesAllowed}}</mat-card-subtitle>
+
+      </div>
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+        <h5>Leaves took</h5>
+        <mat-card-subtitle> {{user.leavesTaken}}</mat-card-subtitle>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+        <h5>Leaves Prev. Year</h5>
+        <mat-card-subtitle>
+          {{user.leavesCarriedOverFromLastYear ? user.leavesCarriedOverFromLastYear : 0}}</mat-card-subtitle>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+        <h5>Overtime took</h5>
+        <mat-card-subtitle>{{user.overtimeDaysTaken}}</mat-card-subtitle>
+      </div>
+    </div>
     <mat-chip-list>
       <mat-chip *ngFor="let role of user.roles" color="accent" selected>
         {{role.replace("ROLE_", '')}}

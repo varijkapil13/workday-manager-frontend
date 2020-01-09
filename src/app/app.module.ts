@@ -27,6 +27,8 @@ import {FileUploaderComponent} from './components/file-uploader/file-uploader.co
 import {HolidaysLeavesDialogComponent} from './components/holidays-leaves-dialog/holidays-leaves-dialog.component';
 import {UserCardComponent} from './components/user-card/user-card.component';
 import {ApprovalsDialogComponent} from './components/approvals-dialog/approvals-dialog.component';
+import {ToastComponentComponent} from './components/toast-component/toast-component.component';
+import {ToastModule} from '@syncfusion/ej2-angular-notifications';
 
 @NgModule({
   entryComponents: [
@@ -47,7 +49,8 @@ import {ApprovalsDialogComponent} from './components/approvals-dialog/approvals-
     FileUploaderComponent,
     HolidaysLeavesDialogComponent,
     UserCardComponent,
-    ApprovalsDialogComponent
+    ApprovalsDialogComponent,
+    ToastComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +63,7 @@ import {ApprovalsDialogComponent} from './components/approvals-dialog/approvals-
     RecurrenceEditorModule,
     FlexLayoutModule,
     AppRoutingModule,
+    ToastModule,
   ],
 
   providers: [

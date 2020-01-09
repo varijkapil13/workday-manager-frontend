@@ -6,57 +6,75 @@
 <div class="mat-card" fxFill fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="20px">
   <!--  User Information -->
   <div fxFlex="50">
-    <app-user-card [showActions]="false" [user]="userInfo"></app-user-card>
+    <app-user-card [showActions]="false" [user]="userProfile"></app-user-card>
   </div>
   <!--  User Information -->
+  <!--  Change Password-->
+
   <div fxFlex="50" fxLayout="column" fxLayoutAlign="space-evenly start" fxLayoutGap="20px">
     <button (click)="showPasswordForm = !showPasswordForm" color="accent" mat-flat-button>Change Password</button>
     <div *ngIf="showPasswordForm">
       <form (ngSubmit)="changePassword()" [formGroup]="changePasswordForm" fxLayout="column"
             fxLayoutAlign="space-evenly start">
+        <!--        Hidden username for accessibility-->
+        <input autocomplete="username" hidden>
+        <!--        Hidden username for accessibility-->
         <mat-form-field appearance="fill">
           <mat-label>Old Password</mat-label>
           <input [ngClass]="{'is-invalid': formControls.oldPassword.errors}" formControlName="oldPassword" matInput
-                 placeholder="Old Password" required
+                 autocomplete="current-password" placeholder="Old Password" required
                  type="password">
           <mat-error *ngIf="formControls.oldPassword.errors && formControls.oldPassword.errors.required"> Old Password
             is required
           </mat-error>
 
         </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>New Password</mat-label>
-          <input [ngClass]="{'is-invalid': formControls.newPassword.errors}" formControlName="newPassword" matInput
-                 placeholder="New Password" required
-                 type="password">
-          <mat-error *ngIf="formControls.newPassword.errors && formControls.newPassword.errors.required"> Password is
-            required
-          </mat-error>
-          <mat-error *ngIf="formControls.newPassword.errors && formControls.newPassword.errors.minlength"> Password
-            should be atleast 6 character long
-          </mat-error>
-          <mat-error *ngIf="formControls.newPassword.errors && formControls.newPassword.errors.MatchPassword"> Passwords
-            do not match
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Repeat New Password</mat-label>
-          <input [ngClass]="{'is-invalid': formControls.repeatNewPassword.errors}" formControlName="repeatNewPassword"
-                 matInput placeholder="Repeat New Password" required
-                 type="password">
-          <mat-error *ngIf="formControls.repeatNewPassword.errors && formControls.repeatNewPassword.errors.required">
-            Password is required
-          </mat-error>
-          <mat-error *ngIf="formControls.repeatNewPassword.errors && formControls.repeatNewPassword.errors.minlength">
-            Password should be atleast 6 character long
-          </mat-error>
-          <mat-error *ngIf="formControls.repeatNewPassword.errors &&
+        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="15px">
+
+
+          <mat-form-field appearance="fill">
+            <mat-label>New Password</mat-label>
+            <input [ngClass]="{'is-invalid': formControls.newPassword.errors}" formControlName="newPassword" matInput
+                   autocomplete="new-password" placeholder="New Password" required
+                   type="password">
+            <mat-error *ngIf="formControls.newPassword.errors && formControls.newPassword.errors.required"> Password is
+              required
+            </mat-error>
+            <mat-error *ngIf="formControls.newPassword.errors && formControls.newPassword.errors.minlength"> Password
+              should be at least 6 character long
+            </mat-error>
+            <mat-error *ngIf="formControls.newPassword.errors && formControls.newPassword.errors.MatchPassword"> Passwords
+              do not match
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Repeat New Password</mat-label>
+            <input [ngClass]="{'is-invalid': formControls.repeatNewPassword.errors}" formControlName="repeatNewPassword"
+                   autocomplete="new-password" matInput placeholder="Repeat New Password" required
+                   type="password">
+            <mat-error *ngIf="formControls.repeatNewPassword.errors && formControls.repeatNewPassword.errors.required">
+              Password is required
+            </mat-error>
+            <mat-error *ngIf="formControls.repeatNewPassword.errors && formControls.repeatNewPassword.errors.minlength">
+              Password should be atleast 6 character long
+            </mat-error>
+            <mat-error *ngIf="formControls.repeatNewPassword.errors &&
           formControls.repeatNewPassword.errors.MatchPassword"> Passwords do not match
-          </mat-error>
-        </mat-form-field>
-        <button color="warn" mat-flat-button>Change</button>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="button-container">
+          <div *ngIf="loading" class="spinner-container">
+            <mat-spinner *ngIf="loading" diameter="24"></mat-spinner>
+          </div>
+          <button [disabled]="loading" class="btn-block" color="warn" mat-flat-button type="submit">
+            Change
+          </button>
+        </div>
+
       </form>
     </div>
   </div>
   <!--  Change Password-->
+  <app-toast-component #appToastNotifications></app-toast-component>
 </div>
