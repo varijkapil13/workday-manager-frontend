@@ -11,7 +11,7 @@ import {Overtime} from '../../types/overtime';
 })
 export class OvertimeComponent implements OnInit {
 
-  hours: Overtime[] = [];
+  overtimes: Overtime[] = [];
   dataSource: MatTableDataSource<Overtime>;
   displayedColumns: string[] = ['userName', 'userEmail', 'hours', 'updatedAt'];
   currentlyLoggedInUser: UserFromJwt;
@@ -32,16 +32,16 @@ export class OvertimeComponent implements OnInit {
     if (this.currentlyLoggedInUser.isAdmin || this.currentlyLoggedInUser.isManager) {
       this.overtimeService.fetchOvertimeForAllUsers().subscribe(response => {
         for (const data of response.body) {
-          this.hours.push(data);
+          this.overtimes.push(data);
         }
-        this.dataSource = new MatTableDataSource(this.hours);
+        this.dataSource = new MatTableDataSource(this.overtimes);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       });
     } else {
       this.overtimeService.fetchOvertimeForSingleUser(this.currentlyLoggedInUser.id).subscribe(response => {
-        this.hours.push(response.body);
-        this.dataSource = new MatTableDataSource(this.hours);
+        this.overtimes.push(response.body);
+        this.dataSource = new MatTableDataSource(this.overtimes);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       });

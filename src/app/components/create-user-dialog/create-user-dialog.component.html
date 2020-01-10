@@ -1,0 +1,115 @@
+<h2 mat-dialog-title> Approvals </h2>
+<form (ngSubmit)="saveUser()" [formGroup]="dialogForm">
+  <mat-dialog-content>
+
+    <div fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+      <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+
+        <!--        First Name -->
+        <mat-form-field appearance="fill">
+          <mat-label>First Name</mat-label>
+          <input [ngClass]="{ 'is-invalid': formControls.firstName.errors }" class="form-control"
+                 formControlName="firstName" matInput
+                 required type=" text"/>
+          <mat-error *ngIf="formControls.firstName.errors && formControls.firstName.errors.required">
+            First Name is required
+          </mat-error>
+        </mat-form-field>
+        <!--        First Name -->
+        <!--        Last Name -->
+        <mat-form-field appearance="fill">
+          <mat-label>Last Name</mat-label>
+          <input [ngClass]="{ 'is-invalid': formControls.lastName.errors }" class="form-control"
+                 formControlName="lastName" matInput
+                 required type=" text"/>
+          <mat-error *ngIf="formControls.lastName.errors && formControls.lastName.errors.required">
+            Last Name is required
+          </mat-error>
+        </mat-form-field>
+        <!--        Last Name -->
+      </div>
+
+      <!--       Email -->
+      <mat-form-field appearance="fill" class="form-field-full-width">
+        <mat-label>Email</mat-label>
+        <input [ngClass]="{ 'is-invalid': formControls.email.errors }" autocomplete="username" class="form-control"
+               formControlName="email"
+               matInput required type="email"/>
+        <mat-error *ngIf="formControls.email.errors && formControls.email.errors.required">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="formControls.email.errors && formControls.email.errors.email">
+          Please enter a valid email
+        </mat-error>
+      </mat-form-field>
+      <!--        Email -->
+
+      <!--       Password -->
+      <mat-form-field *ngIf="creatingNewUser" appearance="fill" class="form-field-full-width">
+        <mat-label>Password</mat-label>
+        <input [ngClass]="{ 'is-invalid': formControls.password.errors }" autocomplete="current-password"
+               class="form-control" formControlName="password"
+               matInput required type="password"/>
+        <mat-error *ngIf="formControls.password.errors && formControls.password.errors.required">
+          Password is required
+        </mat-error>
+        <mat-error *ngIf="formControls.password.errors && formControls.password.errors.length">
+          Password should be a minimum 6 characters long
+        </mat-error>
+      </mat-form-field>
+      <!--        Password -->
+      <!--      Roles-->
+      <mat-form-field appearance="fill" class="form-field-full-width">
+        <mat-label>User Role</mat-label>
+        <mat-select formControlName="roles">
+          <mat-option *ngFor="let role of userRoles" [value]="role">{{role}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formControls.roles.errors && formControls.roles.errors.required">
+          User role is required
+        </mat-error>
+      </mat-form-field>
+      <!--      Roles-->
+
+      <div fxFlexFill fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+        <!--        Total Leaves -->
+        <mat-form-field appearance="fill" class="form-field-full-width">
+          <mat-label>Total Leaves</mat-label>
+          <input [ngClass]="{ 'is-invalid': formControls.totalLeaves.errors }" class="form-control"
+                 formControlName="totalLeaves" matInput
+                 required type="number"/>
+          <mat-error *ngIf="formControls.totalLeaves.errors && formControls.totalLeaves.errors.required">
+            Total Leaves is required
+          </mat-error>
+        </mat-form-field>
+        <!--        Total Leaves -->
+        <!--        Leaves from last Year -->
+        <mat-form-field appearance="fill" class="form-field-full-width">
+          <mat-label>Leaves from last Year</mat-label>
+          <input [ngClass]="{ 'is-invalid': formControls.leavesFromLastYear.errors }" class="form-control"
+                 formControlName="leavesFromLastYear" matInput
+                 required type="number"/>
+          <mat-error *ngIf="formControls.leavesFromLastYear.errors && formControls.leavesFromLastYear.errors.required">
+            Leaves from last Year is required
+          </mat-error>
+        </mat-form-field>
+        <!--        Leaves from last Year -->
+      </div>
+
+      <mat-form-field *ngIf="passwordResetEntity" appearance="outline" class="form-field-full-width">
+        <mat-label>New Password for user</mat-label>
+        <input [value]="passwordResetEntity.password" matInput type="text">
+      </mat-form-field>
+    </div>
+
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button (click)="resetPassword()" *ngIf="!creatingNewUser" color="warn" mat-flat-button
+            type="button">Reset
+      Password
+    </button>
+    <button color="primary" mat-flat-button type="submit">Save</button>
+
+  </mat-dialog-actions>
+</form>
+
+<app-toast-component #appToastNotifications></app-toast-component>

@@ -29,11 +29,13 @@ import {UserCardComponent} from './components/user-card/user-card.component';
 import {ApprovalsDialogComponent} from './components/approvals-dialog/approvals-dialog.component';
 import {ToastComponentComponent} from './components/toast-component/toast-component.component';
 import {ToastModule} from '@syncfusion/ej2-angular-notifications';
+import {CreateUserDialogComponent} from './components/create-user-dialog/create-user-dialog.component';
 
 @NgModule({
   entryComponents: [
     HolidaysLeavesDialogComponent,
     ApprovalsDialogComponent,
+    CreateUserDialogComponent,
   ],
   declarations: [
     AppComponent,
@@ -50,7 +52,8 @@ import {ToastModule} from '@syncfusion/ej2-angular-notifications';
     HolidaysLeavesDialogComponent,
     UserCardComponent,
     ApprovalsDialogComponent,
-    ToastComponentComponent
+    ToastComponentComponent,
+    CreateUserDialogComponent
   ],
   imports: [
     BrowserModule,

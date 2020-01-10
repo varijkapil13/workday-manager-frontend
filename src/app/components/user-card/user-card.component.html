@@ -14,31 +14,31 @@
   <mat-divider></mat-divider>
   <mat-card-content>
     <div fxLayout="row" fxLayoutAlign="space-around center">
-      <div fxLayout="column" fxLayoutAlign="space-around center">
+      <div fxLayout="column" fxLayoutAlign="center center">
         <h5>User since</h5>
         <mat-card-subtitle> {{user.createdAt | date:"dd.MM.yyyy"}}</mat-card-subtitle>
       </div>
-      <div fxLayout="column" fxLayoutAlign="space-around center">
+      <div fxLayout="column" fxLayoutAlign="center center">
         <h5>Total Leaves</h5>
         <mat-card-subtitle> {{user.leavesAllowed}}</mat-card-subtitle>
 
       </div>
-      <div fxLayout="column" fxLayoutAlign="space-around center">
+      <div fxLayout="column" fxLayoutAlign="center center">
         <h5>Leaves took</h5>
         <mat-card-subtitle> {{user.leavesTaken}}</mat-card-subtitle>
       </div>
-      <div fxLayout="column" fxLayoutAlign="space-around center">
+      <div fxLayout="column" fxLayoutAlign="center center">
         <h5>Leaves Prev. Year</h5>
         <mat-card-subtitle>
           {{user.leavesCarriedOverFromLastYear ? user.leavesCarriedOverFromLastYear : 0}}</mat-card-subtitle>
       </div>
-      <div fxLayout="column" fxLayoutAlign="space-around center">
+      <div fxLayout="column" fxLayoutAlign="center center">
         <h5>Overtime took</h5>
         <mat-card-subtitle>{{user.overtimeDaysTaken}}</mat-card-subtitle>
       </div>
     </div>
     <mat-chip-list>
-      <mat-chip *ngFor="let role of user.roles" color="accent" selected>
+      <mat-chip *ngFor="let role of user.roles.split(',')" color="accent" selected>
         {{role.replace("ROLE_", '')}}
       </mat-chip>
     </mat-chip-list>
@@ -52,7 +52,7 @@
         edit
       </mat-icon>
     </button>
-    <button (click)="onDelete()" color="warn" mat-stroked-button>
+    <button (click)="onDelete()" *ngIf="false" color="warn" mat-stroked-button>
       DELETE
       <mat-icon fontSet="material-icons-round">
         delete

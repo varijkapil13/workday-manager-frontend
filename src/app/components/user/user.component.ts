@@ -1,5 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {AuthenticationService} from '../../services/authentication.service';
+import {UsersService} from '../../services/users/users.service';
+import {User} from '../../types/user';
+import {MatDialog} from '@angular/material';
+import {CreateUserDialogComponent} from '../create-user-dialog/create-user-dialog.component';
+import {ToastComponentComponent, ToastType} from '../toast-component/toast-component.component';
 
 @Component({
   selector: 'app-user',
@@ -8,40 +13,44 @@ import {AuthenticationService, UserFromJwt} from '../../services/authentication.
 })
 export class UserComponent implements OnInit {
 
-  userList: UserFromJwt[] = [];
+  userList: User[] = [];
 
-  constructor(private authenticationService: AuthenticationService) {
+  @ViewChild('appToastNotifications', {static: false})
+  toastComponent: ToastComponentComponent;
+
+  constructor(private authenticationService: AuthenticationService, private usersService: UsersService, public dialog: MatDialog) {
 
   }
 
 
   ngOnInit() {
-    this.generateFakeUsers();
+    this.fetchUsers();
   }
 
-  generateFakeUsers() {
-    for (let i = 0; i < 10; i++) {
-      this.userList.push({
-        createdAt: new Date(),
-        email: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
-        firstName: Math.random().toString(36).substring(2, 15),
-        fullname: Math.random().toString(36).substring(2, 15),
-        id: Math.random().toString(36).substring(2, 15),
-        image: 'https://live.staticflickr.com/4112/5170590074_afe540141c_k.jpg',
-        isAdmin: false,
-        isManager: false,
-        lastName: '',
-        roles: this.getFakeRole(i),
-      });
-    }
+  fetchUsers() {
+    this.usersService.fetchAllUsers().subscribe(response => {
+      if (response.status < 300) {
+        for (const user of response.body) {
+          this.userList.push(user);
+        }
+      } else {
+        this.toastComponent.showToast(ToastType.error, 'Error', 'There was an error completing your request, please try again later!');
+      }
+    });
   }
 
-  getFakeRole(iteration: number) {
-    if (iteration % 2 === 0) {
-      return ['ADMINISTRATOR', 'MANAGER', 'USER'];
-    } else {
-      return ['ADMINISTRATOR', 'ADMINISTRATOR'];
-    }
+
+  createNewUser() {
+    this.dialog.open(CreateUserDialogComponent, {
+      data: {type: 'createUser'},
+      role: 'dialog'
+    });
   }
 
+  editExistingUser(user: User) {
+    this.dialog.open(CreateUserDialogComponent, {
+      data: {type: 'editUser', editingUser: user},
+      role: 'dialog'
+    });
+  }
 }
