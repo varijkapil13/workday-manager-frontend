@@ -2,6 +2,11 @@
   <h2 class="page-title">
     Overtime
   </h2>
+  <button (click)="recalculateOvertimes()" color="accent"
+          mat-flat-button>
+    Recalculate {{isUserPrivileged ? 'All Overtimes' : 'Overtime'}}
+    <mat-icon fontSet="material-icons-round">cached</mat-icon>
+  </button>
 
 </div>
 <div class="table-container">
@@ -40,4 +45,5 @@
 <div>
   <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
 </div>
+<app-toast-component #appToastNotifications></app-toast-component>
 
