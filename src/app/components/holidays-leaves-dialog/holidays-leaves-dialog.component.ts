@@ -1,11 +1,14 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DIALOG_DATA, MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DIALOG_DATA, MAT_RADIO_DEFAULT_OPTIONS, MatDialogRef} from '@angular/material';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Leave} from '../../types/leave';
 import {AppDateAdapter, CUSTOM_DATE_FORMATS} from '../../helpers/date-format.material';
 import {LeaveTypes} from '../../types/leave-types.enum';
 import {LeavesDialogData} from '../../types/leaves-dialog-data';
 import {DialogType} from '../../types/dialog-types.enum';
+import {LeavesService, NewLeaveBody} from '../../services/leaves/leaves.service';
+import {AuthenticationService} from '../../services/authentication.service';
+import {ToastComponentComponent, ToastType} from '../toast-component/toast-component.component';
 
 
 @Component({
@@ -46,7 +49,11 @@ export class HolidaysLeavesDialogComponent implements OnInit {
   editExistingLeaves: Leave;
   dialogOpenedForUserWithId: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: LeavesDialogData, private formBuilder: FormBuilder) {
+  @ViewChild('appToastNotifications', {static: false})
+  toastComponent: ToastComponentComponent;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: LeavesDialogData, private dialogRef: MatDialogRef<HolidaysLeavesDialogComponent>, private formBuilder: FormBuilder,
+              private authenticationService: AuthenticationService, private leavesService: LeavesService) {
     this.isLeavesDialog = data.type === DialogType.leaves;
     this.editExistingLeaves = data.existingLeave;
     this.dialogOpenedForUserWithId = data.userId;
@@ -72,7 +79,6 @@ export class HolidaysLeavesDialogComponent implements OnInit {
     }
     this.loading = true;
 
-    console.log('in submit function');
     if (this.isLeavesDialog) {
       // save/edit the leaves
       if (this.editExistingLeaves) {
@@ -116,20 +122,76 @@ export class HolidaysLeavesDialogComponent implements OnInit {
     }
   }
 
-  private createNewLeave() {
-    // call the api with the required data to save this new leave
-
-    this.loading = false;
+  deleteLeave() {
+    this.leavesService.deleteLeaves(this.editExistingLeaves.userId, this.editExistingLeaves.connection);
   }
 
-  private editAnExistingLeave() {
-    // call the api to edit existing leave
-    this.loading = false;
+  private createNewLeave() {
+    // call the api with the required data to save this new leave
+    const leave: NewLeaveBody = {
+      title: this.formControls.title.value,
+      connection: '',
+      startDate: new Date(Date.UTC(this.formControls.startDate.value.getFullYear(), this.formControls.startDate.value.getMonth(),
+        this.formControls.startDate.value.getDate())).toISOString(),
+      endDate: new Date(Date.UTC(this.formControls.endDate.value.getFullYear(), this.formControls.endDate.value.getMonth(),
+        this.formControls.endDate.value.getDate())).toISOString(),
+      isOvertime: this.formControls.leaveType.value === LeaveTypes.overtime,
+      isSickLeave: this.formControls.leaveType.value === LeaveTypes.sick,
+    };
+
+
+    this.leavesService.createALeave(this.authenticationService.currentUserInfoValue.id, leave).subscribe(response => {
+      this.loading = false;
+      console.log(response);
+      if (response.status > 199 && response.status < 300) {
+        console.log('in success');
+
+        this.toastComponent.showToast(ToastType.success, 'Success', 'Leave added successfully');
+        this.dialogRef.close();
+      } else {
+        console.log('in failure');
+        if (response.status === 404) {
+          this.toastComponent.showToast(ToastType.error, 'User not found', 'The specified user could not be found. Please try again later');
+        } else {
+          this.toastComponent.showToast(ToastType.error, 'Error', 'There was an error while adding leaves. Please try again later');
+        }
+      }
+    });
   }
 
   private createNewHoliday() {
     // call the api with the required data to save the new holiday
     this.loading = false;
+  }
+
+  private editAnExistingLeave() {
+    // call the api to edit existing leave
+
+    const leave: NewLeaveBody = {
+      title: this.formControls.title.value,
+      connection: this.editExistingLeaves.connection,
+      startDate: new Date(Date.UTC(this.formControls.startDate.value.getFullYear(), this.formControls.startDate.value.getMonth(),
+        this.formControls.startDate.value.getDate())).toISOString(),
+      endDate: new Date(Date.UTC(this.formControls.endDate.value.getFullYear(), this.formControls.endDate.value.getMonth(),
+        this.formControls.endDate.value.getDate())).toISOString(),
+      isOvertime: this.formControls.leaveType.value === LeaveTypes.overtime,
+      isSickLeave: this.formControls.leaveType.value === LeaveTypes.sick,
+    };
+
+    this.leavesService.editALeave(leave).subscribe(response => {
+      this.loading = false;
+      if (response.status > 199 && response.status < 300) {
+        this.toastComponent.showToast(ToastType.success, 'Success', 'Leaves edited successfully');
+        this.dialogRef.close();
+      } else {
+        if (response.status === 404) {
+          this.toastComponent.showToast(ToastType.error, 'Leaves not found',
+            'The specified leaves could not be found. Please try again later');
+        } else {
+          this.toastComponent.showToast(ToastType.error, 'Error', 'There was an error while editing leaves. Please try again later');
+        }
+      }
+    });
   }
 
 

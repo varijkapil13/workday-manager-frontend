@@ -9,14 +9,16 @@ interface ILeave {
   overtime: boolean;
   sick: boolean;
   approved: boolean;
+  connection: string;
 }
 
 export class Leave implements ILeave {
-  endTime: Date;
   id: number;
+  connection: string;
   overtime: boolean;
   sick: boolean;
   startTime: Date;
+  endTime: Date;
   title: string;
   userEmail: string;
   userId: string;

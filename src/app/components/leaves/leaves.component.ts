@@ -35,6 +35,8 @@ export class LeavesComponent implements OnInit {
   firstDayOfWeek = 2;
   currentlyLoggedUser: UserFromJwt;
   isCurrentUserPrivileged = false;
+  pendingApprovals = 0;
+
   public selectedDate: Date = new Date();
   public eventSettings: EventSettingsModel;
   public monthInterval = 12;
@@ -93,6 +95,31 @@ export class LeavesComponent implements OnInit {
     this.fetchData();
   }
 
+  get getPendingApprovalsBadge(): string {
+    return `${this.pendingApprovals ? this.pendingApprovals : ''}`;
+  }
+
+  cellClicked(event: EventClickArgs) {
+    console.log('in event click method: ', event.event);
+
+    this.dialog.open(HolidaysLeavesDialogComponent, {
+      data: {
+        type: DialogType.leaves,
+        name: 'Edit Leave',
+        userId: '46576879tufjchgvhobv8c458ity76986ir7666r75669r767rt7ituf',
+        existingLeave: event.event
+      }, role: 'dialog'
+    });
+  }
+
+  openApprovalsDialog() {
+    this.dialog.open(ApprovalsDialogComponent, {
+      data: {
+        type: 'no data to send currently'
+      }
+    });
+  }
+
   fetchData() {
     this.categoryDataSource = [{
       fullName: 'Varij Kapil',
@@ -131,29 +158,10 @@ export class LeavesComponent implements OnInit {
           usersData.push(user);
         }
 
+
+        this.pendingApprovals = response.body.approvals;
         this.categoryDataSource = usersData;
         this.eventSettings = {dataSource: extend([], leavesData, null, true) as object[]};
-      }
-    });
-  }
-
-  cellClicked(event: EventClickArgs) {
-    console.log('in event click method: ', event.event);
-
-    this.dialog.open(HolidaysLeavesDialogComponent, {
-      data: {
-        type: DialogType.leaves,
-        name: 'Edit Leave',
-        userId: '46576879tufjchgvhobv8c458ity76986ir7666r75669r767rt7ituf',
-        existingLeave: event.event
-      }, role: 'dialog'
-    });
-  }
-
-  openApprovalsDialog() {
-    this.dialog.open(ApprovalsDialogComponent, {
-      data: {
-        type: 'no data to send currently'
       }
     });
   }

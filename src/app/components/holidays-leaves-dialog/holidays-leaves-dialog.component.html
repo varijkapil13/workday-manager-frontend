@@ -39,7 +39,13 @@
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-flat-button mat-dialog-close color="warn" type="button">Cancel</button>
+    <button (click)="deleteLeave()" *ngIf="isLeavesDialog && editExistingLeaves" color="warn" mat-flat-button
+            type="button">
+      Delete Leaves
+    </button>
     <button mat-flat-button color="primary" type="submit" cdkFocusInitial>Save</button>
   </mat-dialog-actions>
 </form>
+<app-toast-component #appToastNotifications></app-toast-component>
+
 

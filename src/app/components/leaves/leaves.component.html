@@ -4,7 +4,11 @@
   </h2>
   <div fxLayoutGap="10px">
 
-    <button (click)="openApprovalsDialog()" *ngIf="isCurrentUserPrivileged" color="primary" mat-flat-button>Approvals
+    <button (click)="openApprovalsDialog()" *ngIf="isCurrentUserPrivileged" [matBadge]="getPendingApprovalsBadge"
+            color="primary"
+            mat-flat-button matBadgeColor="accent" matBadgePosition="above before"
+            matBadgeSize="medium">
+      Approvals
       <mat-icon fontSet="material-icons-round">local_post_office</mat-icon>
     </button>
 
