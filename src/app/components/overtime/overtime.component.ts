@@ -70,7 +70,6 @@ export class OvertimeComponent implements OnInit {
         allOvertimes.push(data);
       }
 
-      console.log(allOvertimes);
       this.dataSource = new MatTableDataSource(allOvertimes);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;

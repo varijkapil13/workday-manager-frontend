@@ -3,6 +3,8 @@ import {of, Subscription} from 'rxjs';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {HttpClient, HttpErrorResponse, HttpEventType, HttpRequest} from '@angular/common/http';
 import {catchError, last, map, tap} from 'rxjs/operators';
+import {ApiUrls} from '../../helpers/AppConfiguration';
+import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
 
 export class FileUploadModel {
   data: File;
@@ -32,19 +34,22 @@ export class FileUploaderComponent implements OnInit {
   /** Link text */
   @Input() text = 'Upload Timely Report';
   /** Name used in form which will be sent in HTTP request. */
-  @Input() param = 'file';
+  @Input() param = 'reportFile';
   /** Target URL for file uploading. */
-  @Input() target = 'https://file.io';
+  @Input() target = ApiUrls.workdays;
 
   // File extension that accepted, same as 'accept' of <input type="file" />.By the default, it's set to 'image/*'.
-  @Input() accept = 'image/*';
+  @Input() accept = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel';
 
-  // Allow you to add handler after its completion. Bubble up response text from remote.
+  // Allow you to add a handler after its completion. Bubble up response text from remote.
   @Output() complete = new EventEmitter<string>();
+
+  currentlyLoggeedInUser: UserFromJwt;
 
   private files: Array<FileUploadModel> = [];
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {
+    this.currentlyLoggeedInUser = this.authenticationService.currentUserInfoValue;
   }
 
   ngOnInit() {
@@ -80,7 +85,7 @@ export class FileUploaderComponent implements OnInit {
     const fd = new FormData();
     fd.append(this.param, file.data);
 
-    const req = new HttpRequest('POST', this.target, fd, {
+    const req = new HttpRequest('POST', `${this.target}/${this.currentlyLoggeedInUser.id}/upload`, fd, {
       reportProgress: true
     });
 
