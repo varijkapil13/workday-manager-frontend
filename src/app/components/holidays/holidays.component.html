@@ -32,10 +32,20 @@
             <mat-cell *matCellDef="let element"> {{element.notes}} </mat-cell>
           </ng-container>
 
-          <!-- Last Updated  Column -->
+          <!-- Last Updated Column -->
           <ng-container matColumnDef="updatedAt">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Last Updated</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.updatedAt}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.updatedAt | date: "dd.MM.yyyy HH:mm"}} </mat-cell>
+          </ng-container>
+
+          <!-- Delete Holiday Column -->
+          <ng-container matColumnDef="delete">
+            <mat-header-cell *matHeaderCellDef> Delete</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button (click)="deleteHoliday(element)" color="warn" mat-icon-button>
+                <mat-icon color="warn" fontSet="material-icons-round">delete</mat-icon>
+              </button>
+            </mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="['titleColumn']; sticky: true"></mat-header-row>
@@ -64,7 +74,7 @@
         <ng-container matColumnDef="addToCompany">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Take Over</mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button mat-icon-button matTooltip="Add to your company">
+            <button (click)="addPublicHolidayToCompany(element)" mat-icon-button matTooltip="Add to your company">
               <mat-icon color="accent" fontSet="material-icons-round">
                 call_missed
               </mat-icon>
@@ -92,5 +102,7 @@
     <!-- Public Holidays -->
   </div>
 </div>
+<app-toast-component #appToastNotifications></app-toast-component>
+
 
 
