@@ -121,47 +121,41 @@ export class LeavesComponent implements OnInit {
   }
 
   fetchData() {
-    this.categoryDataSource = [{
-      fullName: 'Varij Kapil',
-      leavesAllowed: 2,
-      leavesTaken: 23,
-      leavesCarriedOverFromLastYear: 2,
-      id: 'leave.userId'
-    }];
-    this.eventSettings = {
-      dataSource: extend([], [
-        {
-          title: 'leave.title',
-          overtime: true,
-          sick: false,
-          id: 'leave.id',
-          Subject: 'leave.title',
-          StartTime: new Date(),
-          EndTime: new Date(2020, 2, 23),
-          IsAllDay: true,
-          userId: 'leave.userId'
-        }
-      ], null, true) as object[],
-      allowAdding: false,
-      allowDeleting: false,
-      allowEditing: false,
-    };
 
     this.leavesService.fetchLeavesForAllUsers().subscribe(response => {
       if (response.body) {
         const leavesData: Leave[] = [];
         const usersData: User[] = [];
         for (const leave of response.body.leaves) {
-          leavesData.push(leave);
+          leavesData.push({
+            EndTime: new Date(leave.endTime),
+            IsAllDay: true,
+            StartTime: new Date(leave.startTime),
+            Subject: leave.title,
+            approved: leave.approved,
+            connection: leave.connection,
+            endTime: leave.endTime,
+            id: leave.id,
+            overtime: leave.overtime,
+            sick: leave.sick,
+            startTime: leave.startTime,
+            title: leave.title,
+            userEmail: leave.userEmail,
+            userId: leave.userId,
+            userName: leave.userName,
+          });
         }
         for (const user of response.body.users) {
           usersData.push(user);
         }
 
-
         this.pendingApprovals = response.body.approvals;
         this.categoryDataSource = usersData;
-        this.eventSettings = {dataSource: extend([], leavesData, null, true) as object[]};
+        this.eventSettings = {
+          dataSource: extend([], leavesData, null, true) as object[], allowAdding: false,
+          allowDeleting: false,
+          allowEditing: false,
+        };
       }
     });
   }

@@ -25,20 +25,10 @@ export class Leave implements ILeave {
   userName: string;
   approved: boolean;
 
-  get Subject() {
-    return this.title;
-  }
-
-  get StartTime() {
-    return new Date(this.startTime);
-  }
-
-  get EndTime() {
-    return new Date(this.endTime);
-  }
-
-  get IsAllDay() {
-    return true;
-  }
+  // members for the calendar, they can be null
+  Subject?: string;
+  StartTime?: Date;
+  EndTime?: Date;
+  IsAllDay = true;
 
 }
