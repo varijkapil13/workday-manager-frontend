@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.2](https://github.com/varijkapil13/workday-manager-frontend/compare/v0.0.1...v0.0.2) (2020-01-12)
+
+
+### Bug Fixes
+
+* minor fixes ([b3ad396](https://github.com/varijkapil13/workday-manager-frontend/commit/b3ad396f998983a570aea66d30ed3b97b1cba11a))
+
 ### 0.0.1 (2020-01-12)
 
 
