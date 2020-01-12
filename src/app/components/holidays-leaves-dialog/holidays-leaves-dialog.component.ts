@@ -100,6 +100,15 @@ export class HolidaysLeavesDialogComponent implements OnInit {
     return this.dialogForm.controls;
   }
 
+  get maxForEndDate() {
+    if (this.formControls.startDate.value) {
+      return this.formControls.startDate.value;
+    } else {
+      const currentDate = new Date();
+      return new Date(currentDate.getFullYear() - 2, currentDate.getMonth(), currentDate.getDate());
+    }
+  }
+
   datepickerFilter(d: Date): boolean {
     const day = d.getDay();
     // prevent weekends from being selected

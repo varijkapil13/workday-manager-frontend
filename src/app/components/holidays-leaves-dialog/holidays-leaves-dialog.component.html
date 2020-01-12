@@ -21,7 +21,8 @@
     </mat-form-field>
 
     <mat-form-field *ngIf="isLeavesDialog" class="form-field-full-width">
-      <input matInput [matDatepickerFilter]="datepickerFilter" formControlName="endDate" [matDatepicker]="endDatePicker"
+      <input [matDatepickerFilter]="datepickerFilter" [matDatepicker]="endDatePicker" [min]="maxForEndDate"
+             formControlName="endDate" matInput
              placeholder="Choose an end date">
       <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
