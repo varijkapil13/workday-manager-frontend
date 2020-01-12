@@ -1,0 +1,44 @@
+.app-header {
+  justify-content: space-between;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.toolbar {
+  height: 6%;
+  display: flex;
+  align-items: center;
+  background-color: #3f51b5;
+  color: white;
+  font-weight: 600;
+}
+
+.btn.vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.content {
+  min-height: 80vh;
+  max-width: 100%;
+}
+
+
+footer {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  line-height: 20px;
+  height: 5%;
+}
+
+

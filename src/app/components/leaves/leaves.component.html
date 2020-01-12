@@ -1,7 +1,37 @@
+<div class="mat-card page-header" fxLayout="row" fxLayoutAlign="space-between center">
+  <h2 class="page-title">
+    Leaves
+  </h2>
+  <div fxLayoutGap="10px">
+
+    <button (click)="openApprovalsDialog()" *ngIf="isCurrentUserPrivileged" [matBadge]="getPendingApprovalsBadge"
+            color="primary"
+            mat-flat-button matBadgeColor="accent" matBadgePosition="above before"
+            matBadgeSize="medium">
+      Approvals
+      <mat-icon fontSet="material-icons-round">local_post_office</mat-icon>
+    </button>
+
+    <button (click)="onAddLeavesClick()" color="accent" mat-flat-button>Add Leaves
+      <mat-icon fontSet="material-icons-round"> add</mat-icon>
+    </button>
+
+  </div>
+
+
+</div>
 <div class="table-container">
+  <!-- <ejs-gantt #ganttComponent [dataSource]="ganttDataSource" [taskFields]="ganttTaskFields" [allowSelection]="true"-->
+  <!--            [labelSettings]="ganttLabelSettings" [projectStartDate]="ganttStartDate" [projectEndDate]="ganttEndDate"-->
+  <!--            [highlightWeekends]="true">-->
+
+  <!-- </ejs-gantt>-->
 
   <ejs-schedule #scheduleObj width='100%' height='100%' [selectedDate]="selectedDate" cssClass='timeline-resource'
-                [group]="group" [eventSettings]="eventSettings"
+                (eventClick)="cellClicked($event)" [allowDragAndDrop]="false" [allowMultiRowSelection]="false"
+                [allowResizing]="false"
+                [eventSettings]="eventSettings" [firstDayOfWeek]="firstDayOfWeek" [group]="group"
+                [quickInfoOnSelectionEnd]="false" [showQuickInfo]="false" [showWeekNumber]="true"
                 (renderCell)="onRenderCell($event)" (eventRendered)="onEventRendered($event)">
     <e-header-rows>
       <e-header-row option='Month'>
@@ -9,13 +39,21 @@
           <span [innerHTML]="getMonthDetails(data)"></span>
         </ng-template>
       </e-header-row>
-      <e-header-row option='Week'>
-        <ng-template #template let-data>
-          <span [innerHTML]="getWeekDetails(data)"></span>
-        </ng-template>
-      </e-header-row>
+      <!--      <e-header-row option='Week'>-->
+      <!--        <ng-template #template let-data>-->
+      <!--          <span [innerHTML]="getWeekDetails(data)"></span>-->
+      <!--        </ng-template>-->
+      <!--      </e-header-row>-->
       <e-header-row option='Date'></e-header-row>
     </e-header-rows>
+
+    <ng-template #eventSettingsTemplate let-data>
+      <div [style.background]="data.SecondaryColor" class='template-wrap'>
+        <div [style.background]="data.SecondaryColor" class="subject">{{data.Subject}}</div>
+        <div class="description">Varij Kapil</div>
+      </div>
+    </ng-template>
+
     <e-resources>
       <e-resource field='userId' title='User' [dataSource]='categoryDataSource' [allowMultiple]='allowMultiple'
                   name='Users'
@@ -30,8 +68,25 @@
         <div class="capacity">{{data.resourceData.leavesCarriedOverFromLastYear}}</div>
       </div>
     </ng-template>
+
     <e-views>
-      <e-view displayName='Timeline Month' option='TimelineMonth' [interval]="monthInterval"></e-view>
+      <e-view [firstDayOfWeek]="firstDayOfWeek" [interval]="monthInterval" displayName='Timeline Month'
+              option='TimelineMonth'
+              showWeekNumber="true">
+
+        <ng-template #eventTemplate let-data>
+          <div [style.background]="data.PrimaryColor">
+            <div [style.background]="data.SecondaryColor" [style.border-color]="data.PrimaryColor"
+                 class="subject">
+              {{data.Subject}}
+            </div>
+            <div [style.background]="data.SecondaryColor" [style.border-color]="data.PrimaryColor"
+                 class="subject">
+              Pending approval
+            </div>
+          </div>
+        </ng-template>
+      </e-view>
     </e-views>
   </ejs-schedule>
 </div>

@@ -2,6 +2,10 @@ table {
   width: 100%;
 }
 
+.spacer {
+  flex: 1;
+}
+
 th.mat-sort-header-sorted {
   color: black;
 }

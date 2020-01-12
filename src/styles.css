@@ -1,3 +1,4 @@
+@import '../node_modules/@syncfusion/ej2-material-theme/styles/material.css';
 /*Default theme from Material UI*/
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
@@ -22,11 +23,12 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-html, body {
-  height: 100%;
+h2.page-title {
+  margin-top: 0;
+  margin-left: 0.50em;
+  padding-top: 0.50em;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+.mat-card.page-header {
+  padding-right: 20px;
 }

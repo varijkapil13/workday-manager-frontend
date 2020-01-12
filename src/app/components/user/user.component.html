@@ -1,1 +1,21 @@
-<p>user works!</p>
+<div class="mat-card page-header" fxLayout="row" fxLayoutAlign="space-between center">
+  <h2 class="page-title">
+    Users
+  </h2>
+
+  <div>
+    <button (click)="createNewUser()" color="accent" mat-flat-button> Add New User
+      <mat-icon fontSet="material-icons-round"> add</mat-icon>
+    </button>
+  </div>
+</div>
+<div class="mat-card" fxFlexFill>
+  <div fxFlexFill fxLayout="row wrap" fxLayoutGap="5px grid">
+    <div *ngFor="let user of userList" fxFlex="33">
+      <app-user-card (onEditClick)="editExistingUser(user)" [showActions]="true" [user]="user"></app-user-card>
+    </div>
+  </div>
+
+</div>
+<app-toast-component #appToastNotifications></app-toast-component>
+

@@ -18,10 +18,26 @@ import {UserComponent} from './components/user/user.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {OvertimeComponent} from './components/overtime/overtime.component';
 import {ReportsComponent} from './components/reports/reports.component';
-// Syncfusion schedular
+// Syncfusion scheduler
 import {RecurrenceEditorModule, ScheduleModule} from '@syncfusion/ej2-angular-schedule';
+// Syncfusion scheduler
+import {AuthenticatedLayoutComponent} from './components/layouts/authenticated-layout/authenticated-layout.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {FileUploaderComponent} from './components/file-uploader/file-uploader.component';
+import {HolidaysLeavesDialogComponent} from './components/holidays-leaves-dialog/holidays-leaves-dialog.component';
+import {UserCardComponent} from './components/user-card/user-card.component';
+import {ApprovalsDialogComponent} from './components/approvals-dialog/approvals-dialog.component';
+import {ToastComponentComponent} from './components/toast-component/toast-component.component';
+import {ToastModule} from '@syncfusion/ej2-angular-notifications';
+import {CreateUserDialogComponent} from './components/create-user-dialog/create-user-dialog.component';
+import {GanttModule} from '@syncfusion/ej2-angular-gantt';
 
 @NgModule({
+  entryComponents: [
+    HolidaysLeavesDialogComponent,
+    ApprovalsDialogComponent,
+    CreateUserDialogComponent,
+  ],
   declarations: [
     AppComponent,
     LoginComponent,
@@ -31,18 +47,28 @@ import {RecurrenceEditorModule, ScheduleModule} from '@syncfusion/ej2-angular-sc
     HolidaysComponent,
     ProfileComponent,
     OvertimeComponent,
-    ReportsComponent
+    ReportsComponent,
+    AuthenticatedLayoutComponent,
+    FileUploaderComponent,
+    HolidaysLeavesDialogComponent,
+    UserCardComponent,
+    ApprovalsDialogComponent,
+    ToastComponentComponent,
+    CreateUserDialogComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     CustomMaterialModule,
     FormsModule,
-    AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     ScheduleModule,
     RecurrenceEditorModule,
+    FlexLayoutModule,
+    AppRoutingModule,
+    ToastModule,
+    GanttModule,
   ],
 
   providers: [

@@ -1,0 +1,56 @@
+<h2 mat-dialog-title> Approvals </h2>
+<mat-dialog-content>
+  <div>
+    <mat-spinner *ngIf="loading" color="accent" mode="indeterminate"></mat-spinner>
+  </div>
+  <mat-table *ngIf="!loading" [dataSource]="dataSource" matSort>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="userName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.userName}} </mat-cell>
+    </ng-container>
+
+    <!-- Start Date Column -->
+    <ng-container matColumnDef="startDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Start Date</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.startTime | date: "dd.MM.yyyy"}} </mat-cell>
+    </ng-container>
+
+    <!-- End Date Column -->
+    <ng-container matColumnDef="endDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> End Date</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.endTime | date: "dd.MM.yyyy"}} </mat-cell>
+    </ng-container>
+
+    <!-- Type Column -->
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Type</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{getLeaveType(element)}} </mat-cell>
+    </ng-container>
+
+    <!-- Approve button Column -->
+    <ng-container matColumnDef="approve">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Approve</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button (click)="approveLeave(element)" mat-stroked-button>
+          <mat-icon fontSet="material-icons-round">check</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
+  <div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button color="warn" mat-dialog-close mat-flat-button>Cancel</button>
+</mat-dialog-actions>
+
+<app-toast-component #appToastNotifications></app-toast-component>
+
