@@ -192,7 +192,6 @@ export class LeavesComponent implements OnInit {
   }
 
   cellClicked(event: EventClickArgs) {
-    console.log('in event click method: ', event.event);
 
     this.dialog.open(HolidaysLeavesDialogComponent, {
       data: {
