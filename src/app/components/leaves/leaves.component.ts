@@ -13,12 +13,13 @@ import {LeavesService} from '../../services/leaves/leaves.service';
 import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
 import {MatDialog} from '@angular/material';
 import {HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
-import {getWeekNumber} from '../../helpers/utils';
+import {leavesColorCombination} from '../../helpers/utils';
 import {EventClickArgs} from '@syncfusion/ej2-schedule/src/schedule/base/interface';
 import {Leave} from '../../types/leave';
 import {User} from '../../types/user';
 import {DialogType} from '../../types/dialog-types.enum';
 import {ApprovalsDialogComponent} from '../approvals-dialog/approvals-dialog.component';
+import dayjs from 'dayjs';
 
 
 @Component({
@@ -28,6 +29,17 @@ import {ApprovalsDialogComponent} from '../approvals-dialog/approvals-dialog.com
   styleUrls: ['./leaves.component.css']
 })
 export class LeavesComponent implements OnInit {
+
+  allHolidays: any[] = [];
+
+  constructor(private leavesService: LeavesService, private authenticationService: AuthenticationService, public dialog: MatDialog) {
+    this.currentlyLoggedUser = this.authenticationService.currentUserInfoValue;
+    this.isCurrentUserPrivileged = authenticationService.isCurrentUserPrivileged;
+  }
+
+  get getPendingApprovalsBadge(): string {
+    return `${this.pendingApprovals ? this.pendingApprovals : ''}`;
+  }
 
   @ViewChild('scheduleObj', {static: false})
   schedulerObject: ScheduleComponent;
@@ -79,36 +91,71 @@ export class LeavesComponent implements OnInit {
   ganttStartDate: Date = new Date(new Date().getFullYear() - 1, 11, 31);
   ganttEndDate: Date = new Date(new Date().getFullYear() + 1, 0, 1);
 
+  private static determineLeaveEventColor(leave: any) {
+    if (!leave.approved) {
+      return leavesColorCombination.pendingApproval;
+    }
+    if (leave.overtime) {
+      return leavesColorCombination.overtime;
+    }
+    if (leave.sick) {
+      return leavesColorCombination.sick;
+    }
+
+    return leavesColorCombination.approvedLeaves;
+  }
+
+  determineLeaveEventDescription(leave: any) {
+    if (!leave.approved) {
+      return 'Approval Pending';
+    }
+    if (leave.overtime) {
+      return 'Overtime';
+    }
+    if (leave.sick) {
+      return 'Sick Leave';
+    }
+
+    return 'Leave';
+  }
+
   getMonthDetails(value: CellTemplateArgs): string {
     return this.instance.formatDate((value as CellTemplateArgs).date, {skeleton: 'yMMMM'});
   }
 
-  getWeekDetails(value: CellTemplateArgs): string {
-    return 'Week ' + getWeekNumber((value as CellTemplateArgs).date);
-  }
-
   onRenderCell(args: RenderCellEventArgs): void {
-
     if (args.elementType === 'emptyCells' && args.element.classList.contains('e-resource-left-td')) {
       args.element.setAttribute('style', 'width: 280px');
       const target: HTMLElement = args.element.querySelector('.e-resource-text') as HTMLElement;
       target.innerHTML = '<div class="name">Name</div><div class="type">Leaves</div>' +
         '<div class="capacity">Remaining</div><div class="capacity">Last Year</div>';
     }
+
+    if ((args.elementType === 'monthCells' || args.elementType === 'dateHeader') && args.date &&
+      (args.date.getDay() === 0 || args.date.getDay() === 6 || this.checkForHolidayInclude(args.date))) {
+      const element = args.element;
+      element.setAttribute('style', 'background-color: ' + leavesColorCombination.holidays);
+    }
+  }
+
+  checkForHolidayInclude(date: Date) {
+
+    const filteredDates = this.allHolidays.filter(item => {
+      return dayjs(item).isSame(dayjs(date), 'day');
+    });
+    return filteredDates.length > 0;
+
+
   }
 
   onEventRendered(args: EventRenderedArgs): void {
-    const categoryColor: string = args.data.CategoryColor as string;
-    if (!args.element || !categoryColor) {
+
+    const eventColor = LeavesComponent.determineLeaveEventColor(args.data);
+
+    if (!args.element) {
       return;
     }
-    args.element.style.backgroundColor = categoryColor;
-  }
-
-
-  constructor(private leavesService: LeavesService, private authenticationService: AuthenticationService, public dialog: MatDialog) {
-    this.currentlyLoggedUser = this.authenticationService.currentUserInfoValue;
-    this.isCurrentUserPrivileged = authenticationService.isCurrentUserPrivileged;
+    args.element.style.backgroundColor = eventColor;
   }
 
   onAddLeavesClick() {
@@ -128,10 +175,6 @@ export class LeavesComponent implements OnInit {
   ngOnInit() {
     // this.schedulerObject.firstDayOfWeek = 1;
     this.fetchData();
-  }
-
-  get getPendingApprovalsBadge(): string {
-    return `${this.pendingApprovals ? this.pendingApprovals : ''}`;
   }
 
   cellClicked(event: EventClickArgs) {
@@ -165,6 +208,7 @@ export class LeavesComponent implements OnInit {
       if (response.body) {
         const leavesData: Leave[] = [];
         const usersData: User[] = [];
+        this.allHolidays = [];
         for (const leave of response.body.leaves) {
           leavesData.push({
             EndTime: new Date(leave.endTime),
@@ -186,6 +230,10 @@ export class LeavesComponent implements OnInit {
         }
         for (const user of response.body.users) {
           usersData.push(user);
+        }
+
+        for (const holiday of response.body.holidays) {
+          this.allHolidays.push(dayjs(holiday.date));
         }
 
         this.pendingApprovals = response.body.approvals;

@@ -78,11 +78,11 @@
           <div [style.background]="data.PrimaryColor">
             <div [style.background]="data.SecondaryColor" [style.border-color]="data.PrimaryColor"
                  class="subject">
-              {{data.Subject}}
+              <span style="font-weight: bolder">{{data.Subject}}</span>
             </div>
             <div [style.background]="data.SecondaryColor" [style.border-color]="data.PrimaryColor"
                  class="subject">
-              Pending approval
+              {{determineLeaveEventDescription(data)}}
             </div>
           </div>
         </ng-template>
