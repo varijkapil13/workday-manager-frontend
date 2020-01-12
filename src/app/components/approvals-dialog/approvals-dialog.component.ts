@@ -12,7 +12,6 @@ import {ToastComponentComponent, ToastType} from '../toast-component/toast-compo
 })
 export class ApprovalsDialogComponent implements OnInit {
 
-  approvals: any[] = [];
   displayedColumns = ['userName', 'startDate', 'endDate', 'type', 'approve'];
   dataSource: MatTableDataSource<any>;
 
@@ -40,10 +39,11 @@ export class ApprovalsDialogComponent implements OnInit {
     this.leavesService.getLeavesToApprove().subscribe(response => {
       this.loading = false;
       if (response.status > 199 && response.status < 300) {
+        const approvalsData: any[] = [];
         for (const leaves of response.body) {
-          this.approvals.push(leaves);
+          approvalsData.push(leaves);
         }
-        this.dataSource = new MatTableDataSource<Leave>(this.approvals);
+        this.dataSource = new MatTableDataSource<Leave>(approvalsData);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       } else {
