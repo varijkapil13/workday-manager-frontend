@@ -30,17 +30,6 @@ import dayjs from 'dayjs';
 })
 export class LeavesComponent implements OnInit {
 
-  allHolidays: any[] = [];
-
-  constructor(private leavesService: LeavesService, private authenticationService: AuthenticationService, public dialog: MatDialog) {
-    this.currentlyLoggedUser = this.authenticationService.currentUserInfoValue;
-    this.isCurrentUserPrivileged = authenticationService.isCurrentUserPrivileged;
-  }
-
-  get getPendingApprovalsBadge(): string {
-    return `${this.pendingApprovals ? this.pendingApprovals : ''}`;
-  }
-
   @ViewChild('scheduleObj', {static: false})
   schedulerObject: ScheduleComponent;
 
@@ -48,6 +37,7 @@ export class LeavesComponent implements OnInit {
   currentlyLoggedUser: UserFromJwt;
   isCurrentUserPrivileged = false;
   pendingApprovals = 0;
+  allHolidays: any[] = [];
 
   public selectedDate: Date = new Date();
   public eventSettings: EventSettingsModel;
@@ -59,37 +49,6 @@ export class LeavesComponent implements OnInit {
     resources: ['Users']
   };
   public categoryDataSource: object[] = [];
-  ganttDataSource: object[] = [
-    {
-      TaskID: 1,
-      TaskName: 'Product concept',
-      StartDate: new Date('02/02/2020'),
-      EndDate: new Date('02/21/2020'),
-    },
-    {
-      TaskID: 1,
-      TaskName: 'Product concept',
-      StartDate: new Date('03/02/2020'),
-      EndDate: new Date('03/21/2020'),
-    }
-  ];
-
-  ganttTaskFields: object = {
-    id: 'TaskID',
-    name: 'TaskName',
-    startDate: 'StartDate',
-    endDate: 'EndDate',
-    duration: 'Duration',
-    progress: 'Progress',
-    dependency: 'Predecessor',
-    child: 'subtasks'
-  };
-
-  ganttLabelSettings: object = {
-    leftLabel: 'TaskName',
-  };
-  ganttStartDate: Date = new Date(new Date().getFullYear() - 1, 11, 31);
-  ganttEndDate: Date = new Date(new Date().getFullYear() + 1, 0, 1);
 
   private static determineLeaveEventColor(leave: any) {
     if (!leave.approved) {
@@ -105,65 +64,27 @@ export class LeavesComponent implements OnInit {
     return leavesColorCombination.approvedLeaves;
   }
 
-  determineLeaveEventDescription(leave: any) {
-    if (!leave.approved) {
-      return 'Approval Pending';
-    }
-    if (leave.overtime) {
-      return 'Overtime';
-    }
-    if (leave.sick) {
-      return 'Sick Leave';
-    }
-
-    return 'Leave';
+  constructor(private leavesService: LeavesService, private authenticationService: AuthenticationService, public dialog: MatDialog) {
+    this.currentlyLoggedUser = this.authenticationService.currentUserInfoValue;
+    this.isCurrentUserPrivileged = authenticationService.isCurrentUserPrivileged;
   }
 
-  getMonthDetails(value: CellTemplateArgs): string {
-    return this.instance.formatDate((value as CellTemplateArgs).date, {skeleton: 'yMMMM'});
+  ngOnInit() {
+    this.fetchData();
   }
 
-  onRenderCell(args: RenderCellEventArgs): void {
-    if (args.elementType === 'emptyCells' && args.element.classList.contains('e-resource-left-td')) {
-      args.element.setAttribute('style', 'width: 280px');
-      const target: HTMLElement = args.element.querySelector('.e-resource-text') as HTMLElement;
-      target.innerHTML = '<div class="name">Name</div><div class="type">Leaves</div>' +
-        '<div class="capacity">Remaining</div><div class="capacity">Last Year</div>';
-    }
-
-    if ((args.elementType === 'monthCells' || args.elementType === 'dateHeader') && args.date &&
-      (args.date.getDay() === 0 || args.date.getDay() === 6 || this.checkForHolidayInclude(args.date))) {
-      const element = args.element;
-      element.setAttribute('style', 'background-color: ' + leavesColorCombination.holidays);
-    }
+  get getPendingApprovalsBadge(): string {
+    return `${this.pendingApprovals ? this.pendingApprovals : ''}`;
   }
 
-  checkForHolidayInclude(date: Date) {
-
-    const filteredDates = this.allHolidays.filter(item => {
-      return dayjs(item).isSame(dayjs(date), 'day');
-    });
-    return filteredDates.length > 0;
-
-
-  }
-
-  onEventRendered(args: EventRenderedArgs): void {
-
-    const eventColor = LeavesComponent.determineLeaveEventColor(args.data);
-
-    if (!args.element) {
-      return;
-    }
-    args.element.style.backgroundColor = eventColor;
-  }
-
+  // **************************
+  // Dialog Button Actions
+  // **************************
   onAddLeavesClick() {
     const dialogRef = this.dialog.open(HolidaysLeavesDialogComponent, {
       data: {
         type: DialogType.leaves,
         name: 'Add Leaves',
-        userId: '46576879tufjchgvhobv8c458ity76986ir7666r75669r767rt7ituf'
       }, role: 'dialog'
     });
 
@@ -172,23 +93,6 @@ export class LeavesComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    // this.schedulerObject.firstDayOfWeek = 1;
-    this.fetchData();
-  }
-
-  cellClicked(event: EventClickArgs) {
-    console.log('in event click method: ', event.event);
-
-    this.dialog.open(HolidaysLeavesDialogComponent, {
-      data: {
-        type: DialogType.leaves,
-        name: 'Edit Leave',
-        userId: '46576879tufjchgvhobv8c458ity76986ir7666r75669r767rt7ituf',
-        existingLeave: event.event
-      }, role: 'dialog'
-    });
-  }
 
   openApprovalsDialog() {
     const dialogRef = this.dialog.open(ApprovalsDialogComponent, {
@@ -201,6 +105,14 @@ export class LeavesComponent implements OnInit {
       this.fetchData();
     });
   }
+
+  // **************************
+  // Dialog Button Actions
+  // **************************
+
+  // **************************
+  // API Call
+  // **************************
 
   fetchData() {
 
@@ -247,12 +159,86 @@ export class LeavesComponent implements OnInit {
     });
   }
 
-  getCellContent(date: Date): string {
-    if (date.getMonth() === 2) {
-      return 'red';
-    } else {
-      return '';
+  // **************************
+  // API Call
+  // **************************
+
+  //  ***********************************************************************
+  //  Scheduler event handlers and callbacks
+  //  ***********************************************************************
+  onRenderCell(args: RenderCellEventArgs): void {
+    if (args.elementType === 'emptyCells' && args.element.classList.contains('e-resource-left-td')) {
+      args.element.setAttribute('style', 'width: 280px');
+      const target: HTMLElement = args.element.querySelector('.e-resource-text') as HTMLElement;
+      target.innerHTML = '<div class="name">Name</div><div class="type">Leaves</div>' +
+        '<div class="capacity">Remaining</div><div class="capacity">Last Year</div>';
     }
 
+    if ((args.elementType === 'monthCells' || args.elementType === 'dateHeader') && args.date &&
+      (args.date.getDay() === 0 || args.date.getDay() === 6 || this.checkForHolidayInclude(args.date))) {
+      const element = args.element;
+      element.setAttribute('style', 'background-color: ' + leavesColorCombination.holidays);
+    }
   }
+
+  onEventRendered(args: EventRenderedArgs): void {
+
+    const eventColor = LeavesComponent.determineLeaveEventColor(args.data);
+
+    if (!args.element) {
+      return;
+    }
+    args.element.style.backgroundColor = eventColor;
+  }
+
+  cellClicked(event: EventClickArgs) {
+    console.log('in event click method: ', event.event);
+
+    this.dialog.open(HolidaysLeavesDialogComponent, {
+      data: {
+        type: DialogType.leaves,
+        name: 'Edit Leave',
+        existingLeave: event.event
+      }, role: 'dialog'
+    });
+  }
+
+
+  getMonthDetails(value: CellTemplateArgs): string {
+    return this.instance.formatDate((value as CellTemplateArgs).date, {skeleton: 'yMMMM'});
+  }
+
+  // **************************
+  // Helpers for Scheduler component
+  // **************************
+  determineLeaveEventDescription(leave: any) {
+    if (!leave.approved) {
+      return 'Approval Pending';
+    }
+    if (leave.overtime) {
+      return 'Overtime';
+    }
+    if (leave.sick) {
+      return 'Sick Leave';
+    }
+
+    return 'Leave';
+  }
+
+
+  checkForHolidayInclude(date: Date) {
+    const filteredDates = this.allHolidays.filter(item => {
+      return dayjs(item).isSame(dayjs(date), 'day');
+    });
+    return filteredDates.length > 0;
+  }
+
+  // **************************
+  // Helpers for Scheduler component
+  // **************************
+
+  //  ***********************************************************************
+  //  Scheduler event handlers and callbacks
+  //  ***********************************************************************
+
 }
