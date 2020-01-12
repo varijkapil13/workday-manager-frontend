@@ -13,7 +13,7 @@ import {HttpResponse} from '@angular/common/http';
 })
 export class HoursComponent implements OnInit {
 
-  hours: Hours[] = [];
+
   dataSource: MatTableDataSource<Hours>;
   displayedColumns: string[] = ['userName', 'loggedHours', 'date', 'tags', 'notes'];
   currentlyLoggedInUser: UserFromJwt;
@@ -63,16 +63,17 @@ export class HoursComponent implements OnInit {
       this.toastComponent.showToast(ToastType.error, 'Error', 'There was an error trying to upload the data. Please try again later');
     } else {
       this.toastComponent.showToast(ToastType.success, 'Success', 'Timely data successfully imported ');
+      this.fetchData();
     }
   }
 
   private initializeHoursData(response: HttpResponse<Hours[]>) {
     if (response.status > 199 && response.status < 300) {
-
+      const hours: Hours[] = [];
       for (const data of response.body) {
-        this.hours.push(data);
+        hours.push(data);
       }
-      this.dataSource = new MatTableDataSource(this.hours);
+      this.dataSource = new MatTableDataSource(hours);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     } else {
