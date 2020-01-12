@@ -30,6 +30,7 @@ import {ApprovalsDialogComponent} from './components/approvals-dialog/approvals-
 import {ToastComponentComponent} from './components/toast-component/toast-component.component';
 import {ToastModule} from '@syncfusion/ej2-angular-notifications';
 import {CreateUserDialogComponent} from './components/create-user-dialog/create-user-dialog.component';
+import {GanttModule} from '@syncfusion/ej2-angular-gantt';
 
 @NgModule({
   entryComponents: [
@@ -67,6 +68,7 @@ import {CreateUserDialogComponent} from './components/create-user-dialog/create-
     FlexLayoutModule,
     AppRoutingModule,
     ToastModule,
+    GanttModule,
   ],
 
   providers: [

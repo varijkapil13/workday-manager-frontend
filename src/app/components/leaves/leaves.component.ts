@@ -47,6 +47,37 @@ export class LeavesComponent implements OnInit {
     resources: ['Users']
   };
   public categoryDataSource: object[] = [];
+  ganttDataSource: object[] = [
+    {
+      TaskID: 1,
+      TaskName: 'Product concept',
+      StartDate: new Date('02/02/2020'),
+      EndDate: new Date('02/21/2020'),
+    },
+    {
+      TaskID: 1,
+      TaskName: 'Product concept',
+      StartDate: new Date('03/02/2020'),
+      EndDate: new Date('03/21/2020'),
+    }
+  ];
+
+  ganttTaskFields: object = {
+    id: 'TaskID',
+    name: 'TaskName',
+    startDate: 'StartDate',
+    endDate: 'EndDate',
+    duration: 'Duration',
+    progress: 'Progress',
+    dependency: 'Predecessor',
+    child: 'subtasks'
+  };
+
+  ganttLabelSettings: object = {
+    leftLabel: 'TaskName',
+  };
+  ganttStartDate: Date = new Date(new Date().getFullYear() - 1, 11, 31);
+  ganttEndDate: Date = new Date(new Date().getFullYear() + 1, 0, 1);
 
   getMonthDetails(value: CellTemplateArgs): string {
     return this.instance.formatDate((value as CellTemplateArgs).date, {skeleton: 'yMMMM'});
@@ -81,12 +112,16 @@ export class LeavesComponent implements OnInit {
   }
 
   onAddLeavesClick() {
-    this.dialog.open(HolidaysLeavesDialogComponent, {
+    const dialogRef = this.dialog.open(HolidaysLeavesDialogComponent, {
       data: {
         type: DialogType.leaves,
         name: 'Add Leaves',
         userId: '46576879tufjchgvhobv8c458ity76986ir7666r75669r767rt7ituf'
       }, role: 'dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.fetchData();
     });
   }
 
@@ -113,10 +148,14 @@ export class LeavesComponent implements OnInit {
   }
 
   openApprovalsDialog() {
-    this.dialog.open(ApprovalsDialogComponent, {
+    const dialogRef = this.dialog.open(ApprovalsDialogComponent, {
       data: {
         type: 'no data to send currently'
       }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.fetchData();
     });
   }
 

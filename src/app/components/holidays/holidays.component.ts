@@ -15,7 +15,7 @@ import {ToastComponentComponent, ToastType} from '../toast-component/toast-compo
 })
 export class HolidaysComponent implements OnInit {
 
-  holidays: Holiday[] = [];
+
   publicHolidays: any[] = [];
   dataSource: MatTableDataSource<Holiday>;
   publicHolidaysDataSource: MatTableDataSource<any>;
@@ -42,11 +42,11 @@ export class HolidaysComponent implements OnInit {
 
   fetchData() {
     this.holidaysService.fetchAllHolidaysInCurrentYear().subscribe(response => {
-      this.holidays = [];
+      const holidays: Holiday[] = [];
       for (const data of response.body) {
-        this.holidays.push(data);
+        holidays.push(data);
       }
-      this.dataSource = new MatTableDataSource(this.holidays);
+      this.dataSource = new MatTableDataSource(holidays);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
@@ -64,11 +64,15 @@ export class HolidaysComponent implements OnInit {
   }
 
   onAddHolidaysClick() {
-    this.dialog.open(HolidaysLeavesDialogComponent, {
+    const dialogRef = this.dialog.open(HolidaysLeavesDialogComponent, {
       data: {
         type: DialogType.holidays,
         name: 'Add Holidays',
       }, role: 'dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.fetchData();
     });
   }
 
