@@ -64,7 +64,7 @@
       <div class='template-wrap'>
         <div class="name">{{data.resourceData.fullName}}</div>
         <div class="type">{{data.resourceData.leavesAllowed}}</div>
-        <div class="capacity">{{data.resourceData.leavesTaken}}</div>
+        <div class="capacity">{{data.resourceData.leavesTaken ? data.resourceData.leavesTaken : 'N/A'}}</div>
         <div class="capacity">{{data.resourceData.leavesCarriedOverFromLastYear}}</div>
       </div>
     </ng-template>

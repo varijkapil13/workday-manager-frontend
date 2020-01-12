@@ -168,7 +168,7 @@ export class LeavesComponent implements OnInit {
   //  ***********************************************************************
   onRenderCell(args: RenderCellEventArgs): void {
     if (args.elementType === 'emptyCells' && args.element.classList.contains('e-resource-left-td')) {
-      args.element.setAttribute('style', 'width: 280px');
+      args.element.setAttribute('style', 'width: 290px');
       const target: HTMLElement = args.element.querySelector('.e-resource-text') as HTMLElement;
       target.innerHTML = '<div class="name">Name</div><div class="type">Leaves</div>' +
         '<div class="capacity">Remaining</div><div class="capacity">Last Year</div>';
