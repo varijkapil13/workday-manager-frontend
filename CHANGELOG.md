@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/varijkapil13/workday-manager-frontend/compare/v0.0.3...v0.0.4) (2020-01-14)
+
+
+### Bug Fixes
+
+* fix bug with password validation in edit/new user form ([0f4f876](https://github.com/varijkapil13/workday-manager-frontend/commit/0f4f876db5a7dec07e14289d9c563802903ec527))
+* minor fixes ([73a5e70](https://github.com/varijkapil13/workday-manager-frontend/commit/73a5e70867a4cf1fda72edde2d3360c950f8c389))
+* redirect to hours from empty authenticated route ([8f0b28a](https://github.com/varijkapil13/workday-manager-frontend/commit/8f0b28a992aed82fad0d2798df9446d0cff76821))
+
 ### [0.0.3](https://github.com/varijkapil13/workday-manager-frontend/compare/v0.0.2...v0.0.3) (2020-01-14)
 
 
