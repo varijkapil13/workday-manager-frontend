@@ -38,20 +38,14 @@
           <span [innerHTML]="getMonthDetails(data)"></span>
         </ng-template>
       </e-header-row>
-      <!--      <e-header-row option='Week'>-->
-      <!--        <ng-template #template let-data>-->
-      <!--          <span [innerHTML]="getWeekDetails(data)"></span>-->
-      <!--        </ng-template>-->
-      <!--      </e-header-row>-->
+      <!--            <e-header-row option='Week'>-->
+      <!--              <ng-template #template let-data>-->
+      <!--                <span [innerHTML]="getWeekDetails(data)"></span>-->
+      <!--              </ng-template>-->
+      <!--            </e-header-row>-->
       <e-header-row option='Date'></e-header-row>
     </e-header-rows>
 
-    <ng-template #eventSettingsTemplate let-data>
-      <div [style.background]="data.SecondaryColor" class='template-wrap'>
-        <div [style.background]="data.SecondaryColor" class="subject">{{data.Subject}}</div>
-        <div class="description">Varij Kapil</div>
-      </div>
-    </ng-template>
 
     <e-resources>
       <e-resource field='userId' title='User' [dataSource]='categoryDataSource' [allowMultiple]='allowMultiple'
@@ -60,11 +54,13 @@
       </e-resource>
     </e-resources>
     <ng-template #resourceHeaderTemplate let-data>
-      <div class='template-wrap'>
-        <div class="name">{{data.resourceData.fullName}}</div>
-        <div class="type">{{data.resourceData.leavesAllowed}}</div>
-        <div class="capacity">{{data.resourceData.leavesTaken ? data.resourceData.leavesTaken : 'N/A'}}</div>
-        <div class="capacity">{{data.resourceData.leavesCarriedOverFromLastYear}}</div>
+      <div class='template-wrap' fxLayout="row" fxLayoutAlign="start center">
+        <div fxFlex="40">{{data.resourceData.fullName}}</div>
+        <div fxFlex="20" fxLayoutAlign="center center">{{data.resourceData.leavesAllowed}}</div>
+        <div fxFlex="20"
+             fxLayoutAlign="center center">{{data.resourceData.leavesTaken ? data.resourceData.leavesTaken
+          : 'N/A'}}</div>
+        <div fxFlex="20" fxLayoutAlign="center center">{{data.resourceData.leavesCarriedOverFromLastYear}}</div>
       </div>
     </ng-template>
 
@@ -77,7 +73,7 @@
           <div [style.background]="data.PrimaryColor">
             <div [style.background]="data.SecondaryColor" [style.border-color]="data.PrimaryColor"
                  class="subject">
-              <span style="font-weight: bolder">{{data.Subject}}</span>
+              <span style="font-weight: 400">{{data.Subject}}</span>
             </div>
             <div [style.background]="data.SecondaryColor" [style.border-color]="data.PrimaryColor"
                  class="subject">

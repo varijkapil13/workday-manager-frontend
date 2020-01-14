@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
 
-    // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+    // get return url from route parameters or default to '/hours'
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/hours';
   }
 
   // convenience getter for easy access to form fields

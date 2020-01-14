@@ -23,12 +23,9 @@ const routes: Routes = [
       {path: SidebarLinkValues.profile.link, component: ProfileComponent},
       {path: SidebarLinkValues.users.link, component: UserComponent},
       {path: SidebarLinkValues.reports.link, component: ReportsComponent},
-      {path: '**', redirectTo: SidebarLinkValues.hours.link},
     ]
   },
   {path: 'login', component: LoginComponent},
-
-  {path: '**', redirectTo: SidebarLinkValues.hours.link}
 
 ];
 

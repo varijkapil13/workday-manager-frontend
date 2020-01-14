@@ -168,10 +168,12 @@ export class LeavesComponent implements OnInit {
   //  ***********************************************************************
   onRenderCell(args: RenderCellEventArgs): void {
     if (args.elementType === 'emptyCells' && args.element.classList.contains('e-resource-left-td')) {
-      args.element.setAttribute('style', 'width: 290px');
+      args.element.setAttribute('style', 'width: 310px');
       const target: HTMLElement = args.element.querySelector('.e-resource-text') as HTMLElement;
-      target.innerHTML = '<div class="name">Name</div><div class="type">Leaves</div>' +
-        '<div class="capacity">Remaining</div><div class="capacity">Last Year</div>';
+      target.innerHTML = '<div class="name">Name</div>' +
+        '<div class="content" matTooltip="Total Leaves Allowed this year">Leaves</div>' +
+        '<div class="content" matTooltip="Leaves Remaining in this year">Remain</div>' +
+        '<div class="content" matTooltip="Leaves left over from last year">Prv. Year</div>';
     }
 
     if ((args.elementType === 'monthCells' || args.elementType === 'dateHeader') && args.date &&
