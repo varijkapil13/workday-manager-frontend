@@ -4,5 +4,8 @@
   font-weight: bolder;
   text-align: center;
   line-height: 40px;
+}
 
+h5.lighter-bold {
+  font-weight: 500;
 }

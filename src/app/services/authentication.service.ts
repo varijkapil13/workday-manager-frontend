@@ -98,7 +98,6 @@ export class AuthenticationService {
 
   logout() {
     // remove user from local storage and set current user to null
-    console.log('in logout');
     localStorage.removeItem(JWT_KEY_LOCAL_STORAGE);
     this.currentUserSubject.next(null);
     location.reload();

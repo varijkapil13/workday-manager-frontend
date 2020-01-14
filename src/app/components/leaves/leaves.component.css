@@ -1,13 +1,13 @@
 
 .timeline-resource.e-schedule .template-wrap {
-  display: flex;
+  /*display: flex;*/
   height: 100%;
   text-align: left;
 }
 
 .timeline-resource.e-schedule .template-wrap > div {
   border-right: 1px solid rgba(0, 0, 0, 0.12);
-  flex: 0 0 25%;
+  /*flex: 0 0 25%;*/
   font-weight: 500;
   line-height: 58px;
   overflow: hidden;
@@ -15,13 +15,14 @@
   text-overflow: ellipsis;
 }
 
+
 .timeline-resource.e-schedule .template-wrap > div:last-child {
   border-right: 0;
 }
 
 .e-schedule .templatewrap {
   text-align: center;
-  position: absolute;
+  /*position: absolute;*/
   width: 100%;
 }
 

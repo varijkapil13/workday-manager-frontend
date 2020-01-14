@@ -30,3 +30,12 @@ export const getWeekNumber = (d) => {
   // Return array of year and week number
   return weekNo;
 };
+
+export const leavesColorCombination = {
+  approvedLeaves: '#502bbd',
+  pendingApproval: '#B196FF',
+  overtime: '#9773FF',
+  sick: '#F5EB8C',
+  holidays: '#FFFBCF',
+
+};

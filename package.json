@@ -1,13 +1,15 @@
 {
   "name": "workday-manager",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "NODE_OPTIONS=--max-old-space-size=4096 ng build --stats-json",
+    "build:prod": "NODE_OPTIONS=--max-old-space-size=4096 ng build --prod --stats-json",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "analyse": "webpack-bundle-analyzer dist/workday-manager//stats-es2015.json"
   },
   "private": true,
   "dependencies": {
@@ -27,19 +29,20 @@
     "@syncfusion/ej2-angular-schedule": "^17.4.41",
     "@syncfusion/ej2-material-theme": "^17.4.41",
     "date-holidays": "^1.4.12",
+    "dayjs": "^1.8.19",
     "hammerjs": "^2.0.8",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.803.21",
-    "@angular/cli": "~8.3.21",
+    "@angular-devkit/build-angular": "0.803.22",
+    "@angular/cli": "8.3.22",
     "@angular/compiler-cli": "~8.2.14",
     "@angular/language-service": "~8.2.14",
-    "@types/node": "~8.9.4",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -51,6 +54,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "webpack-bundle-analyzer": "^3.6.0"
   }
 }
