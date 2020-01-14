@@ -50,7 +50,10 @@ export class CreateUserDialogComponent implements OnInit {
         value: this.creatingNewUser ? '' : this.editingUser.email,
         disabled: this.loading || !this.creatingNewUser
       }, [Validators.required, Validators.email]),
-      password: new FormControl({value: '', disabled: this.loading}, [Validators.required, Validators.minLength(6)]),
+      password: new FormControl({
+        value: '',
+        disabled: this.loading
+      }, this.creatingNewUser ? [Validators.required, Validators.minLength(6)] : []),
       totalLeaves: new FormControl({
         value: this.creatingNewUser ? 30 : this.editingUser.leavesAllowed,
         disabled: this.loading
