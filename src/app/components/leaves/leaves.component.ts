@@ -20,6 +20,7 @@ import {User} from '../../types/user';
 import {DialogType} from '../../types/dialog-types.enum';
 import {ApprovalsDialogComponent} from '../approvals-dialog/approvals-dialog.component';
 import dayjs from 'dayjs';
+import {ToastComponentComponent, ToastType} from '../toast-component/toast-component.component';
 
 
 @Component({
@@ -32,6 +33,9 @@ export class LeavesComponent implements OnInit {
 
   @ViewChild('scheduleObj', {static: false})
   schedulerObject: ScheduleComponent;
+
+  @ViewChild('appToastNotifications', {static: false})
+  toastComponent: ToastComponentComponent;
 
   firstDayOfWeek = 2;
   currentlyLoggedUser: UserFromJwt;
@@ -117,44 +121,48 @@ export class LeavesComponent implements OnInit {
   fetchData() {
 
     this.leavesService.fetchLeavesForAllUsers().subscribe(response => {
-      if (response.body) {
-        const leavesData: Leave[] = [];
-        const usersData: User[] = [];
-        this.allHolidays = [];
-        for (const leave of response.body.leaves) {
-          leavesData.push({
-            EndTime: new Date(leave.endTime),
-            IsAllDay: true,
-            StartTime: new Date(leave.startTime),
-            Subject: leave.title,
-            approved: leave.approved,
-            connection: leave.connection,
-            endTime: leave.endTime,
-            id: leave.id,
-            overtime: leave.overtime,
-            sick: leave.sick,
-            startTime: leave.startTime,
-            title: leave.title,
-            userEmail: leave.userEmail,
-            userId: leave.userId,
-            userName: leave.userName,
-          });
-        }
-        for (const user of response.body.users) {
-          usersData.push(user);
-        }
+      if (response.status > 199 && response.status < 300) {
+        if (response.body) {
+          const leavesData: Leave[] = [];
+          const usersData: User[] = [];
+          this.allHolidays = [];
+          for (const leave of response.body.leaves) {
+            leavesData.push({
+              EndTime: new Date(leave.endTime),
+              IsAllDay: true,
+              StartTime: new Date(leave.startTime),
+              Subject: leave.title,
+              approved: leave.approved,
+              connection: leave.connection,
+              endTime: leave.endTime,
+              id: leave.id,
+              overtime: leave.overtime,
+              sick: leave.sick,
+              startTime: leave.startTime,
+              title: leave.title,
+              userEmail: leave.userEmail,
+              userId: leave.userId,
+              userName: leave.userName,
+            });
+          }
+          for (const user of response.body.users) {
+            usersData.push(user);
+          }
 
-        for (const holiday of response.body.holidays) {
-          this.allHolidays.push(dayjs(holiday.date));
-        }
+          for (const holiday of response.body.holidays) {
+            this.allHolidays.push(dayjs(holiday.date));
+          }
 
-        this.pendingApprovals = response.body.approvals;
-        this.categoryDataSource = usersData;
-        this.eventSettings = {
-          dataSource: extend([], leavesData, null, true) as object[], allowAdding: false,
-          allowDeleting: false,
-          allowEditing: false,
-        };
+          this.pendingApprovals = response.body.approvals;
+          this.categoryDataSource = usersData;
+          this.eventSettings = {
+            dataSource: extend([], leavesData, null, true) as object[], allowAdding: false,
+            allowDeleting: false,
+            allowEditing: false,
+          };
+        }
+      } else {
+        this.toastComponent.showToast(ToastType.error, 'Error', 'There was an error while trying to fetch leaves data. PLease try again later');
       }
     });
   }
