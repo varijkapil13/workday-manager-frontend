@@ -1,7 +1,7 @@
 import {UserRoles} from '../types/user-roles.enum';
 import {environment} from '../../environments/environment';
 
-const baseApiUrl = environment.production ? 'http://localhost:7254' : 'http://localhost:8080';
+const baseApiUrl = environment.production ? '' : 'http://localhost:8080';
 export const ApiUrls = {
   login: baseApiUrl + '/authenticate',
   workdays: baseApiUrl + '/api/workdays',

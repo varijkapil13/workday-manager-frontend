@@ -162,7 +162,8 @@ export class LeavesComponent implements OnInit {
           };
         }
       } else {
-        this.toastComponent.showToast(ToastType.error, 'Error', 'There was an error while trying to fetch leaves data. PLease try again later');
+        this.toastComponent.showToast(ToastType.error, 'Error',
+          'There was an error while trying to fetch leaves data. PLease try again later');
       }
     });
   }
@@ -180,7 +181,7 @@ export class LeavesComponent implements OnInit {
       const target: HTMLElement = args.element.querySelector('.e-resource-text') as HTMLElement;
       target.innerHTML = '<div class="name">Name</div>' +
         '<div class="content" matTooltip="Total Leaves Allowed this year">Leaves</div>' +
-        '<div class="content" matTooltip="Leaves Remaining in this year">Remain</div>' +
+        '<div class="content" matTooltip="Leaves Remaining in this year">Taken</div>' +
         '<div class="content" matTooltip="Leaves left over from last year">Prv. Year</div>';
     }
 
