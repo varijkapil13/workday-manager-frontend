@@ -3,6 +3,7 @@
     Profile
   </h2>
 </div>
+<mat-divider></mat-divider>
 <div class="mat-card" fxFill fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="20px">
   <!--  User Information -->
   <div fxFlex="50">
@@ -12,7 +13,9 @@
   <!--  Change Password-->
 
   <div fxFlex="50" fxLayout="column" fxLayoutAlign="space-evenly start" fxLayoutGap="20px">
-    <button (click)="showPasswordForm = !showPasswordForm" color="accent" mat-flat-button>Change Password</button>
+    <button (click)="showPasswordForm = !showPasswordForm" [hidden]="!userProfile" color="accent"
+            mat-flat-button>Change Password
+    </button>
     <div *ngIf="showPasswordForm">
       <form (ngSubmit)="changePassword()" [formGroup]="changePasswordForm" fxLayout="column"
             fxLayoutAlign="space-evenly start">

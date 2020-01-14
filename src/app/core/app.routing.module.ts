@@ -15,7 +15,7 @@ import {AuthenticatedLayoutComponent} from '../components/layouts/authenticated-
 const routes: Routes = [
   {
     path: '', component: AuthenticatedLayoutComponent, canActivate: [AuthGuard], children: [
-      {path: SidebarLinkValues.home.link, component: HoursComponent},
+      // {path: SidebarLinkValues.home.link, component: HoursComponent},
       {path: SidebarLinkValues.hours.link, component: HoursComponent},
       {path: SidebarLinkValues.overtime.link, component: OvertimeComponent},
       {path: SidebarLinkValues.leaves.link, component: LeavesComponent},
@@ -23,11 +23,12 @@ const routes: Routes = [
       {path: SidebarLinkValues.profile.link, component: ProfileComponent},
       {path: SidebarLinkValues.users.link, component: UserComponent},
       {path: SidebarLinkValues.reports.link, component: ReportsComponent},
+      {path: '**', redirectTo: SidebarLinkValues.hours.link},
     ]
   },
   {path: 'login', component: LoginComponent},
 
-  // {path: '**', redirectTo: ''}
+  {path: '**', redirectTo: SidebarLinkValues.hours.link}
 
 ];
 

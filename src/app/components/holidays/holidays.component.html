@@ -2,7 +2,7 @@
   <h2 class="page-title">
     Holidays
   </h2>
-  <button (click)="onAddHolidaysClick()" *ngIf="authenticationService.isCurrentUserPrivileged" color="accent"
+  <button (click)="onAddHolidaysClick()" *ngIf="isCurrentUserPrivileged" color="accent"
           mat-flat-button>
     Add Holidays
     <mat-icon fontSet="material-icons-round"> add</mat-icon>

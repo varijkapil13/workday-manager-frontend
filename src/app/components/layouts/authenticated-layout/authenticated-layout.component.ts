@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService, UserFromJwt} from '../../../services/authentication.service';
 import {SidebarLinks} from '../../../helpers/AppConfiguration';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-authenticated-layout',
@@ -14,9 +15,12 @@ export class AuthenticatedLayoutComponent implements OnInit {
   currentUser: any;
   loggedInUserInfo: UserFromJwt;
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService, private route: ActivatedRoute) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.authenticationService.currentUserInfo.subscribe(x => this.loggedInUserInfo = x);
+    this.route.url.subscribe(changed => {
+      console.log(changed);
+    });
   }
 
   logout() {

@@ -46,7 +46,7 @@ export class FileUploaderComponent implements OnInit {
 
   currentlyLoggeedInUser: UserFromJwt;
 
-  private files: Array<FileUploadModel> = [];
+  files: Array<FileUploadModel> = [];
 
   constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {
     this.currentlyLoggeedInUser = this.authenticationService.currentUserInfoValue;

@@ -15,25 +15,25 @@
   <mat-card-content>
     <div fxLayout="row" fxLayoutAlign="space-around center">
       <div fxLayout="column" fxLayoutAlign="center center">
-        <h5>User since</h5>
+        <h5 class="lighter-bold">User since</h5>
         <mat-card-subtitle> {{user.createdAt | date:"dd.MM.yyyy"}}</mat-card-subtitle>
       </div>
       <div fxLayout="column" fxLayoutAlign="center center">
-        <h5>Total Leaves</h5>
+        <h5 class="lighter-bold">Total Leaves</h5>
         <mat-card-subtitle> {{user.leavesAllowed}}</mat-card-subtitle>
 
       </div>
       <div fxLayout="column" fxLayoutAlign="center center">
-        <h5>Leaves took</h5>
+        <h5 class="lighter-bold">Leaves took</h5>
         <mat-card-subtitle> {{user.leavesTaken}}</mat-card-subtitle>
       </div>
       <div fxLayout="column" fxLayoutAlign="center center">
-        <h5>Leaves Prev. Year</h5>
+        <h5 class="lighter-bold">Leaves Prev. Year</h5>
         <mat-card-subtitle>
           {{user.leavesCarriedOverFromLastYear ? user.leavesCarriedOverFromLastYear : 0}}</mat-card-subtitle>
       </div>
       <div fxLayout="column" fxLayoutAlign="center center">
-        <h5>Overtime took</h5>
+        <h5 class="lighter-bold">Overtime took</h5>
         <mat-card-subtitle>{{user.overtimeDaysTaken}}</mat-card-subtitle>
       </div>
     </div>

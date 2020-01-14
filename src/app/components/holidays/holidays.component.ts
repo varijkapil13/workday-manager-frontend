@@ -35,6 +35,10 @@ export class HolidaysComponent implements OnInit {
     this.currentlyLoggedInUser = this.authenticationService.currentUserInfoValue;
   }
 
+  get isCurrentUserPrivileged() {
+    return this.authenticationService.isCurrentUserPrivileged;
+  }
+
   ngOnInit() {
     this.fetchData();
     this.setupPublicHolidays();

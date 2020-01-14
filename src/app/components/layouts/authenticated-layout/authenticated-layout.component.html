@@ -8,16 +8,22 @@
 
   <mat-sidenav #sidenav mode="side" opened="opened">
     <mat-list role="list">
-      <mat-list-item *ngFor="let link of sidebarLinkForLoggedInUser" role="listitem">
-        <button class="btn vertical" mat-button [matTooltip]="link.name" [routerLink]=" '/' + link.link">
+      <mat-list-item *ngFor="let link of sidebarLinkForLoggedInUser" [routerLink]="'/' + link.link"
+                     fxLayoutAlign="center center"
+                     role="button" routerLinkActive="link-active">
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+
           <mat-icon fontSet="material-icons-round" aria-hidden="false" color="primary">{{link.icon}}</mat-icon>
-        </button>
+          <span class="sidebar-link-title"> {{link.name}} </span>
+
+        </div>
         <mat-divider></mat-divider>
       </mat-list-item>
-      <mat-list-item role="button">
-        <button mat-button matTooltip="Logout" (click)="logout()">
-          <mat-icon fontSet="material-icons-round" aria-hidden="false" color="warn">power_settings_new</mat-icon>
-        </button>
+      <mat-list-item (click)="logout()" fxLayoutAlign="center center" role="button">
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+          <mat-icon aria-hidden="false" color="warn" fontSet="material-icons-round">power_settings_new</mat-icon>
+          <span class="sidebar-link-title"> Logout </span>
+        </div>
         <mat-divider></mat-divider>
       </mat-list-item>
     </mat-list>
@@ -36,8 +42,8 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 <!-- Footer -->
-<footer>
-  Workday Manager footer
-</footer>
+<!--<footer>-->
+<!--  Workday Manager footer-->
+<!--</footer>-->
 
 

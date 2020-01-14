@@ -4,13 +4,13 @@
 
 /* Styling for the SyncFusion Scheduler*/
 @import '../node_modules/@syncfusion/ej2-base/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+/*@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';*/
 @import '../node_modules/@syncfusion/ej2-calendars/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-lists/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
+/*@import '../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';*/
+/*@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';*/
+/*@import '../node_modules/@syncfusion/ej2-lists/styles/material.css';*/
+/*@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';*/
+/*@import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';*/
 /*@import '../node_modules/@syncfusion/ej2-angular-schedule/styles/material.css';*/
 @import "angular-schedular.css";
 
@@ -27,8 +27,12 @@ h2.page-title {
   margin-top: 0;
   margin-left: 0.50em;
   padding-top: 0.50em;
+  font-weight: 500;
+  font-size: 1.5699em;
 }
 
 .mat-card.page-header {
   padding-right: 20px;
+  height: 60px;
+  background-color: #EDEDF5;
 }

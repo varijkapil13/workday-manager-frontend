@@ -1,6 +1,7 @@
 import {UserRoles} from '../types/user-roles.enum';
+import {environment} from '../../environments/environment';
 
-const baseApiUrl = 'http://localhost:8080';
+const baseApiUrl = environment.production ? 'http://localhost:7254' : 'http://localhost:8080';
 export const ApiUrls = {
   login: baseApiUrl + '/authenticate',
   workdays: baseApiUrl + '/api/workdays',
@@ -23,12 +24,12 @@ export const SidebarLinkValues = {
   reports: {link: 'reports', name: 'Reports', icon: 'bar_chart'},
 };
 export const SidebarLinks = [
-  {
-    link: SidebarLinkValues.home.link,
-    name: SidebarLinkValues.home.name,
-    icon: SidebarLinkValues.home.icon,
-    roles: [UserRoles.ADMINISTRATOR, UserRoles.MANAGER, UserRoles.USER]
-  },
+  // {
+  //   link: SidebarLinkValues.home.link,
+  //   name: SidebarLinkValues.home.name,
+  //   icon: SidebarLinkValues.home.icon,
+  //   roles: [UserRoles.ADMINISTRATOR, UserRoles.MANAGER, UserRoles.USER]
+  // },
   {
     link: SidebarLinkValues.hours.link,
     name: SidebarLinkValues.hours.name,
