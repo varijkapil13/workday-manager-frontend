@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/varijkapil13/workday-manager-frontend/compare/v0.0.2...v0.0.3) (2020-01-14)
+
+
+### Bug Fixes
+
+* added snackbar for login error ([89db39c](https://github.com/varijkapil13/workday-manager-frontend/commit/89db39cdd03d40a5259286d2a27c6f77bbe2fab8))
+* added snackbar for login error ([8a66b0b](https://github.com/varijkapil13/workday-manager-frontend/commit/8a66b0be45a04f419bd40d60fb600b5118b7c45d))
+* removed unused ActivatedRoute ([665d9f5](https://github.com/varijkapil13/workday-manager-frontend/commit/665d9f5cef2133007121de7fdc7f304f9357929c))
+* the interceptor should get the value from localStorage ([ebd4e2b](https://github.com/varijkapil13/workday-manager-frontend/commit/ebd4e2bf6ace2cdbf7f08c028bc270109e359b8f))
+* the interceptor should get the value from localStorage ([559820f](https://github.com/varijkapil13/workday-manager-frontend/commit/559820f641a1e800fd15bb2e7a981cd9f3162ede))
+
 ### [0.0.2](https://github.com/varijkapil13/workday-manager-frontend/compare/v0.0.1...v0.0.2) (2020-01-12)
 
 
