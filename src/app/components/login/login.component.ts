@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import {AuthenticationService} from '../../services/authentication.service';
 import {SidebarLinkValues} from '../../helpers/AppConfiguration';
+import {ToastComponentComponent, ToastType} from '../toast-component/toast-component.component';
 
 @Component({
   selector: 'app-login',
@@ -12,20 +13,23 @@ import {SidebarLinkValues} from '../../helpers/AppConfiguration';
 })
 export class LoginComponent implements OnInit {
 
+  @ViewChild('appToastNotifications', {static: false})
+  toastComponent: ToastComponentComponent;
+
   loginForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
   error: string;
-  hide: boolean = true;
+  hide = true;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
               private authenticationService: AuthenticationService) {
-    // redirect to home if already logged in
+    // redirect to hours if already logged in
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate([SidebarLinkValues.home.link]);
+      this.router.navigate([SidebarLinkValues.hours.link]);
     }
   }
 
@@ -60,6 +64,9 @@ export class LoginComponent implements OnInit {
         this.router.navigate([this.returnUrl]);
       },
       error => {
+        console.log(error);
+        this.toastComponent.showToast(ToastType.error, 'Not authenticated', 'Could not authenticate user.' +
+          ' Please make sure the username and password are correct and try again.');
         // this.snackBar.open(error, null, {verticalPosition: 'bottom', duration: 3, politeness: 'assertive'});
         this.loading = false;
       });

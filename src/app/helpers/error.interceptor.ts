@@ -14,7 +14,12 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next
     .handle(request)
     .pipe(catchError((err: HttpErrorResponse) => {
-      if (err.status === 401 || err.status === 0) {
+      const url = err.url;
+      let isFromLoginPage = false;
+      if (url && url.includes('authenticate')) {
+        isFromLoginPage = true;
+      }
+      if ((err.status === 401 || err.status === 0) && !isFromLoginPage) {
         // auto logout if 401 response returned from api
         this.authenticationService.logout();
       }
