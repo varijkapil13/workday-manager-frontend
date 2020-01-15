@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/varijkapil13/workday-manager-frontend/compare/v0.0.4...v0.0.5) (2020-01-15)
+
+
+### Features
+
+* add leaves for different users ([041095a](https://github.com/varijkapil13/workday-manager-frontend/commit/041095abba2375c1b824276874a92efb4094a4fb))
+
 ### [0.0.4](https://github.com/varijkapil13/workday-manager-frontend/compare/v0.0.3...v0.0.4) (2020-01-14)
 
 
