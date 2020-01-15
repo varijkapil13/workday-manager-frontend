@@ -27,6 +27,13 @@
       <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
     </mat-form-field>
+
+    <mat-form-field class="form-field-full-width" *ngIf="shouldShowUserDropDown()">
+      <mat-label>Select a User</mat-label>
+      <mat-select formControlName="selectedUser">
+        <mat-option *ngFor="let user of existingUsers" [value]="user.id">{{user.fullName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
     <mat-radio-group aria-label="Select leaves type" class="dialog-radio-group" formControlName="leaveType"
                      *ngIf="isLeavesDialog">
       <label id="radio-group-label">Leave Type</label>

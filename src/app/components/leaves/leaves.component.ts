@@ -42,6 +42,7 @@ export class LeavesComponent implements OnInit {
   isCurrentUserPrivileged = false;
   pendingApprovals = 0;
   allHolidays: any[] = [];
+  allUsers: User[] = [];
 
   public selectedDate: Date = new Date();
   public eventSettings: EventSettingsModel;
@@ -89,6 +90,7 @@ export class LeavesComponent implements OnInit {
       data: {
         type: DialogType.leaves,
         name: 'Add Leaves',
+        existingUsers: this.allUsers,
       }, role: 'dialog'
     });
 
@@ -124,7 +126,7 @@ export class LeavesComponent implements OnInit {
       if (response.status > 199 && response.status < 300) {
         if (response.body) {
           const leavesData: Leave[] = [];
-          const usersData: User[] = [];
+          this.allUsers = [];
           this.allHolidays = [];
           for (const leave of response.body.leaves) {
             leavesData.push({
@@ -146,7 +148,7 @@ export class LeavesComponent implements OnInit {
             });
           }
           for (const user of response.body.users) {
-            usersData.push(user);
+            this.allUsers.push(user);
           }
 
           for (const holiday of response.body.holidays) {
@@ -154,7 +156,7 @@ export class LeavesComponent implements OnInit {
           }
 
           this.pendingApprovals = response.body.approvals;
-          this.categoryDataSource = usersData;
+          this.categoryDataSource = this.allUsers;
           this.eventSettings = {
             dataSource: extend([], leavesData, null, true) as object[], allowAdding: false,
             allowDeleting: false,

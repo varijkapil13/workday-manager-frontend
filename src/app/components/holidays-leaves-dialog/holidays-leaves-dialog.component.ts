@@ -7,9 +7,10 @@ import {LeaveTypes} from '../../types/leave-types.enum';
 import {LeavesDialogData} from '../../types/leaves-dialog-data';
 import {DialogType} from '../../types/dialog-types.enum';
 import {LeavesService, NewLeaveBody} from '../../services/leaves/leaves.service';
-import {AuthenticationService} from '../../services/authentication.service';
+import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
 import {ToastComponentComponent, ToastType} from '../toast-component/toast-component.component';
 import {CreateHolidayBody, HolidaysService} from '../../services/holidays/holidays.service';
+import {User} from '../../types/user';
 
 
 @Component({
@@ -49,6 +50,8 @@ export class HolidaysLeavesDialogComponent implements OnInit {
   isLeavesDialog = false;
   editExistingLeaves: Leave;
   dialogOpenedForUserWithId: string;
+  existingUsers: User[];
+  currentlyLoggedInUser: UserFromJwt;
 
   @ViewChild('appToastNotifications', {static: false})
   toastComponent: ToastComponentComponent;
@@ -56,9 +59,15 @@ export class HolidaysLeavesDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: LeavesDialogData, private dialogRef: MatDialogRef<HolidaysLeavesDialogComponent>,
               private formBuilder: FormBuilder, private authenticationService: AuthenticationService,
               private leavesService: LeavesService, private holidaysService: HolidaysService) {
+
+
+    this.currentlyLoggedInUser = this.authenticationService.currentUserInfoValue;
     this.isLeavesDialog = data.type === DialogType.leaves;
     this.editExistingLeaves = data.existingLeave;
     this.dialogOpenedForUserWithId = data.userId;
+    if (this.isLeavesDialog && !this.editExistingLeaves) {
+      this.existingUsers = data.existingUsers;
+    }
   }
 
   ngOnInit() {
@@ -70,6 +79,7 @@ export class HolidaysLeavesDialogComponent implements OnInit {
       }, [Validators.required]),
       endDate: new FormControl({value: this.editExistingLeaves ? this.editExistingLeaves.EndTime : '', disabled: true}),
       leaveType: new FormControl(this.determineLeaveType()),
+      selectedUser: new FormControl(this.currentlyLoggedInUser.id)
     });
   }
 
@@ -150,8 +160,11 @@ export class HolidaysLeavesDialogComponent implements OnInit {
       isSickLeave: this.formControls.leaveType.value === LeaveTypes.sick,
     };
 
-
-    this.leavesService.createALeave(this.authenticationService.currentUserInfoValue.id, leave).subscribe(response => {
+    let userForLeaveCreation = this.authenticationService.currentUserInfoValue.id;
+    if (this.formControls.selectedUser.value && this.authenticationService.isCurrentUserPrivileged) {
+      userForLeaveCreation = this.formControls.selectedUser.value;
+    }
+    this.leavesService.createALeave(userForLeaveCreation, leave).subscribe(response => {
       this.loading = false;
       if (response.status > 199 && response.status < 300) {
         this.toastComponent.showToast(ToastType.success, 'Success', 'Leave added successfully');
@@ -217,4 +230,7 @@ export class HolidaysLeavesDialogComponent implements OnInit {
   }
 
 
+  shouldShowUserDropDown() {
+    return this.authenticationService.isCurrentUserPrivileged;
+  }
 }
