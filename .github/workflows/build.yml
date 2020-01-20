@@ -23,5 +23,12 @@ jobs:
         npm install
         npm run build:prod --prod
         npm test
+    - name: Upload Build folder
+      uses: actions/upload-artifact@v1
+      with:
+        name: workday-manager-frontend
+        path: /build/
+        
+        
       env:
         CI: true
