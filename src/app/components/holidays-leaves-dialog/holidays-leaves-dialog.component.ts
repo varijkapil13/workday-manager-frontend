@@ -144,7 +144,24 @@ export class HolidaysLeavesDialogComponent implements OnInit {
   }
 
   deleteLeave() {
-    this.leavesService.deleteLeaves(this.editExistingLeaves.userId, this.editExistingLeaves.connection);
+    console.log('in delete leave method');
+    this.leavesService.deleteLeaves(this.editExistingLeaves.userId, this.editExistingLeaves.connection).subscribe(response => {
+      this.loading = false;
+      if (response.status > 199 && response.status < 300) {
+        this.toastComponent.showToast(ToastType.success, 'Success', 'Leave deleted successfully');
+        this.dialogRef.close();
+      } else {
+        if (response.status === 404) {
+          this.toastComponent.showToast(ToastType.error, 'Leave not found',
+            'The specified leave could not be found. Please try again later');
+        } else if (response.status === 403) {
+          this.toastComponent.showToast(ToastType.error, 'Forbidden',
+            'You do not have permission to edit leaves for others');
+        } else {
+          this.toastComponent.showToast(ToastType.error, 'Error', 'There was an error while deleting leaves. Please try again later');
+        }
+      }
+    });
   }
 
   private createNewLeave() {
@@ -231,6 +248,6 @@ export class HolidaysLeavesDialogComponent implements OnInit {
 
 
   shouldShowUserDropDown() {
-    return this.authenticationService.isCurrentUserPrivileged;
+    return this.authenticationService.isCurrentUserPrivileged && !this.editExistingLeaves;
   }
 }

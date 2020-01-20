@@ -7,6 +7,9 @@ th.mat-sort-header-sorted {
 }
 
 .table-container {
-  max-height: 75vh;
-  overflow: auto;
+  overflow: scroll;
+}
+
+.holiday-container {
+  max-height: 85vh;
 }

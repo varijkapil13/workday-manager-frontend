@@ -34,6 +34,8 @@
         <mat-option *ngFor="let user of existingUsers" [value]="user.id">{{user.fullName}}</mat-option>
       </mat-select>
     </mat-form-field>
+
+
     <mat-radio-group aria-label="Select leaves type" class="dialog-radio-group" formControlName="leaveType"
                      *ngIf="isLeavesDialog">
       <label id="radio-group-label">Leave Type</label>

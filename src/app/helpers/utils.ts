@@ -32,10 +32,10 @@ export const getWeekNumber = (d) => {
 };
 
 export const leavesColorCombination = {
-  approvedLeaves: '#502bbd',
+  approvedLeaves: '#3F51B5',
   pendingApproval: '#B196FF',
   overtime: '#9773FF',
-  sick: '#F5EB8C',
+  sick: '#b2a1c7',
   holidays: '#FFFBCF',
 
 };
