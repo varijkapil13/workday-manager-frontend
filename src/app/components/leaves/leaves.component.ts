@@ -76,6 +76,7 @@ export class LeavesComponent implements OnInit {
 
   ngOnInit() {
     this.fetchData();
+
   }
 
   get getPendingApprovalsBadge(): string {
@@ -162,6 +163,7 @@ export class LeavesComponent implements OnInit {
             allowDeleting: false,
             allowEditing: false,
           };
+          // this.schedulerObject.scrollTo('0900');
         }
       } else {
         this.toastComponent.showToast(ToastType.error, 'Error',
@@ -187,10 +189,12 @@ export class LeavesComponent implements OnInit {
         '<div class="content" matTooltip="Leaves left over from last year">Prv. Year</div>';
     }
 
-    if ((args.elementType === 'monthCells' || args.elementType === 'dateHeader') && args.date &&
-      (args.date.getDay() === 0 || args.date.getDay() === 6 || this.checkForHolidayInclude(args.date))) {
+    if ((args.elementType === 'monthCells' || args.elementType === 'dateHeader')) {
       const element = args.element;
-      element.setAttribute('style', 'background-color: ' + leavesColorCombination.holidays);
+      if (args.date && (args.date.getDay() === 0 || args.date.getDay() === 6 || this.checkForHolidayInclude(args.date))) {
+        element.setAttribute('style', `background-color:${leavesColorCombination.holidays}`);
+      }
+
     }
   }
 
