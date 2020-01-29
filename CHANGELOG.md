@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/varijkapil13/workday-manager-frontend/compare/v0.0.5...v0.0.6) (2020-01-29)
+
+
+### Bug Fixes
+
+* fix bug with leave deletion and editing, and minor color changes ([469dee6](https://github.com/varijkapil13/workday-manager-frontend/commit/469dee6cabfc17212cfe5b31fecc3c4b70caa6a2))
+
 ### [0.0.5](https://github.com/varijkapil13/workday-manager-frontend/compare/v0.0.4...v0.0.5) (2020-01-15)
 
 
