@@ -6,7 +6,7 @@ import {
   GroupModel,
   RenderCellEventArgs,
   ScheduleComponent,
-  TimelineMonthService
+  TimelineMonthService, ToolbarActionArgs
 } from '@syncfusion/ej2-angular-schedule';
 import {extend, Internationalization} from '@syncfusion/ej2-base';
 import {LeavesService} from '../../services/leaves/leaves.service';
@@ -257,4 +257,34 @@ export class LeavesComponent implements OnInit {
   //  Scheduler event handlers and callbacks
   //  ***********************************************************************
 
+  onCreated() {
+    const date: Date = this.schedulerObject.selectedDate;
+    if (date.setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)) {
+      this.scrollTo();
+    }
+  }
+
+  onTodayClick() {
+    const date: Date = this.schedulerObject.selectedDate;
+    if (date.setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)) {
+      this.scrollTo();
+    }
+  }
+
+  scrollTo() {
+    const today: number = new Date(new Date().setHours(0, 0, 0, 0)).getTime();
+    const todayElement = this.schedulerObject.element.querySelector('[data-date="' + today + '"]') as HTMLElement;
+    const contentWrap = this.schedulerObject.element.querySelector('.e-content-wrap') as HTMLElement;
+    contentWrap.scrollLeft = todayElement.offsetLeft;
+  }
+
+  onActionBegin(args: ToolbarActionArgs) {
+    if (args.requestType === 'toolbarItemRendering') {
+      for (let i = 0; i < args.items.length; i++) {
+        if (args.items[i].text === 'Today') {
+          args.items[i].click = this.onTodayClick.bind(this);
+        }
+      }
+    }
+  }
 }
