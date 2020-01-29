@@ -28,7 +28,7 @@
 
   <ejs-schedule #scheduleObj width='100%' height='100%' [selectedDate]="selectedDate" cssClass='timeline-resource'
                 (eventClick)="cellClicked($event)" [allowDragAndDrop]="false" [allowMultiRowSelection]="false"
-                [allowResizing]="false"
+                [allowResizing]="false" (created)="onCreated()" (actionBegin)="onActionBegin($event)"
                 [eventSettings]="eventSettings" [firstDayOfWeek]="firstDayOfWeek" [group]="group"
                 [quickInfoOnSelectionEnd]="false" [showQuickInfo]="false" [showWeekNumber]="true"
                 (renderCell)="onRenderCell($event)" (eventRendered)="onEventRendered($event)">

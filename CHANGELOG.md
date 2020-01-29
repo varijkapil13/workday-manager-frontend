@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/varijkapil13/workday-manager-frontend/compare/v0.0.6...v1.1.0) (2020-01-29)
+
+
+### Features
+
+* added default scroll to today in leaves calendar ([6e7d88b](https://github.com/varijkapil13/workday-manager-frontend/commit/6e7d88b94ecfd02c83eff9700ffca5f280dd2f8d))
+
+### [0.0.6](https://github.com/varijkapil13/workday-manager-frontend/compare/v0.0.5...v0.0.6) (2020-01-29)
+
+
+### Bug Fixes
+
+* fix bug with leave deletion and editing, and minor color changes ([469dee6](https://github.com/varijkapil13/workday-manager-frontend/commit/469dee6cabfc17212cfe5b31fecc3c4b70caa6a2))
+
 ### [0.0.5](https://github.com/varijkapil13/workday-manager-frontend/compare/v0.0.4...v0.0.5) (2020-01-15)
 
 
