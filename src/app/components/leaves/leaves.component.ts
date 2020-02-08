@@ -11,7 +11,7 @@ import {
 import {extend, Internationalization} from '@syncfusion/ej2-base';
 import {LeavesService} from '../../services/leaves/leaves.service';
 import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
 import {leavesColorCombination} from '../../helpers/utils';
 import {EventClickArgs} from '@syncfusion/ej2-schedule/src/schedule/base/interface';
@@ -31,10 +31,10 @@ import {ToastComponentComponent, ToastType} from '../toast-component/toast-compo
 })
 export class LeavesComponent implements OnInit {
 
-  @ViewChild('scheduleObj', {static: false})
+  @ViewChild('scheduleObj')
   schedulerObject: ScheduleComponent;
 
-  @ViewChild('appToastNotifications', {static: false})
+  @ViewChild('appToastNotifications')
   toastComponent: ToastComponentComponent;
 
   firstDayOfWeek = 2;
