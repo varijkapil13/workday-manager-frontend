@@ -11,7 +11,7 @@ import {
 import {extend, Internationalization} from '@syncfusion/ej2-base';
 import {LeavesService} from '../../services/leaves/leaves.service';
 import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
-import { MatDialog } from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {HolidaysLeavesDialogComponent} from '../holidays-leaves-dialog/holidays-leaves-dialog.component';
 import {leavesColorCombination} from '../../helpers/utils';
 import {EventClickArgs} from '@syncfusion/ej2-schedule/src/schedule/base/interface';
@@ -280,9 +280,9 @@ export class LeavesComponent implements OnInit {
 
   onActionBegin(args: ToolbarActionArgs) {
     if (args.requestType === 'toolbarItemRendering') {
-      for (let i = 0; i < args.items.length; i++) {
-        if (args.items[i].text === 'Today') {
-          args.items[i].click = this.onTodayClick.bind(this);
+      for (const item of args.items) {
+        if (item.text === 'Today') {
+          item.click = this.onTodayClick.bind(this);
         }
       }
     }
