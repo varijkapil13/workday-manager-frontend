@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {CreateNewUserEntity, ResetPassword, UsersService} from '../../services/users/users.service';
 import {User} from '../../types/user';
 import {ToastComponentComponent, ToastType} from '../toast-component/toast-component.component';
@@ -19,7 +19,7 @@ export class CreateUserDialogComponent implements OnInit {
   passwordResetEntity: ResetPassword;
   userRoles = ['ADMINISTRATOR', 'MANAGER', 'USER'];
 
-  @ViewChild('appToastNotifications', {static: false})
+  @ViewChild('appToastNotifications')
   toastComponent: ToastComponentComponent;
 
 
@@ -159,8 +159,8 @@ export class CreateUserDialogComponent implements OnInit {
           this.toastComponent.showToast(ToastType.success, 'Done', 'Password reset successfully');
           this.passwordResetEntity = response.body;
         } else {
-          this.toastComponent.showToast(ToastType.error, 'Error', 'There was an error while resetting the user password. Please try again later!');
-          // todo: show error notification
+          this.toastComponent.showToast(ToastType.error, 'Error',
+            'There was an error while resetting the user password. Please try again later!');
         }
       });
     }

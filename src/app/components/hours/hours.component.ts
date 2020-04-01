@@ -1,7 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HoursService} from '../../services/hours.service';
 import {Hours} from '../../types/hours';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
 import {ToastComponentComponent, ToastType} from '../toast-component/toast-component.component';
 import {HttpResponse} from '@angular/common/http';
@@ -21,7 +23,7 @@ export class HoursComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  @ViewChild('appToastNotifications', {static: false})
+  @ViewChild('appToastNotifications')
   toastComponent: ToastComponentComponent;
 
   constructor(private hoursService: HoursService, private authenticationService: AuthenticationService) {

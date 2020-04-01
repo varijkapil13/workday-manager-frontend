@@ -1,5 +1,7 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DIALOG_DATA, MAT_RADIO_DEFAULT_OPTIONS, MatDialogRef} from '@angular/material';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Leave} from '../../types/leave';
 import {AppDateAdapter, CUSTOM_DATE_FORMATS} from '../../helpers/date-format.material';
@@ -53,7 +55,7 @@ export class HolidaysLeavesDialogComponent implements OnInit {
   existingUsers: User[];
   currentlyLoggedInUser: UserFromJwt;
 
-  @ViewChild('appToastNotifications', {static: false})
+  @ViewChild('appToastNotifications')
   toastComponent: ToastComponentComponent;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: LeavesDialogData, private dialogRef: MatDialogRef<HolidaysLeavesDialogComponent>,

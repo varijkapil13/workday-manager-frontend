@@ -4799,6 +4799,10 @@
   }
 }
 
+.e-schedule .e-timeline-month-view .e-content-wrap table col{
+  width: 40px !important;
+}
+
 /*Added by Varij */
 
 /*! Recurrence-Editor component theme */

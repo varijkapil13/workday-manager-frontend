@@ -13,7 +13,7 @@ import {ToastComponentComponent, ToastType} from '../toast-component/toast-compo
 })
 export class LoginComponent implements OnInit {
 
-  @ViewChild('appToastNotifications', {static: false})
+  @ViewChild('appToastNotifications')
   toastComponent: ToastComponentComponent;
 
   loginForm: FormGroup;

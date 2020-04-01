@@ -18,7 +18,7 @@ export class ToastComponentComponent implements OnInit {
 
 
   public position: ToastPositionModel = {X: 'Right', Y: 'Bottom'};
-  @ViewChild('toastComponent', {static: false})
+  @ViewChild('toastComponent')
   private toastObj: ToastComponent;
 
   constructor() {
