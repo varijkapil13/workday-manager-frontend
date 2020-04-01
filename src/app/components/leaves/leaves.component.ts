@@ -6,7 +6,8 @@ import {
   GroupModel,
   RenderCellEventArgs,
   ScheduleComponent,
-  TimelineMonthService, ToolbarActionArgs
+  TimelineMonthService,
+  ToolbarActionArgs
 } from '@syncfusion/ej2-angular-schedule';
 import {extend, Internationalization} from '@syncfusion/ej2-base';
 import {LeavesService} from '../../services/leaves/leaves.service';
@@ -31,6 +32,10 @@ import {ToastComponentComponent, ToastType} from '../toast-component/toast-compo
 })
 export class LeavesComponent implements OnInit {
 
+  public categoryDataSource: object[];
+  //  ***********************************************************************
+  public dataAvailable = false;
+
   @ViewChild('scheduleObj')
   schedulerObject: ScheduleComponent;
 
@@ -47,13 +52,27 @@ export class LeavesComponent implements OnInit {
   public selectedDate: Date = new Date();
   public eventSettings: EventSettingsModel;
   public monthInterval = 12;
-  public allowMultiple = false;
   public instance: Internationalization = new Internationalization();
 
   public group: GroupModel = {
     resources: ['Users']
   };
-  public categoryDataSource: object[] = [];
+
+  constructor(private leavesService: LeavesService, private authenticationService: AuthenticationService, public dialog: MatDialog) {
+    this.currentlyLoggedUser = this.authenticationService.currentUserInfoValue;
+    this.isCurrentUserPrivileged = authenticationService.isCurrentUserPrivileged;
+  }
+
+  // **************************
+  // Helpers for Scheduler component
+  // **************************
+
+  //  ***********************************************************************
+  //  Scheduler event handlers and callbacks
+
+  get getPendingApprovalsBadge(): string {
+    return `${this.pendingApprovals ? this.pendingApprovals : ''}`;
+  }
 
   private static determineLeaveEventColor(leave: any) {
     if (!leave.approved) {
@@ -69,18 +88,9 @@ export class LeavesComponent implements OnInit {
     return leavesColorCombination.approvedLeaves;
   }
 
-  constructor(private leavesService: LeavesService, private authenticationService: AuthenticationService, public dialog: MatDialog) {
-    this.currentlyLoggedUser = this.authenticationService.currentUserInfoValue;
-    this.isCurrentUserPrivileged = authenticationService.isCurrentUserPrivileged;
-  }
-
   ngOnInit() {
     this.fetchData();
 
-  }
-
-  get getPendingApprovalsBadge(): string {
-    return `${this.pendingApprovals ? this.pendingApprovals : ''}`;
   }
 
   // **************************
@@ -163,11 +173,11 @@ export class LeavesComponent implements OnInit {
             allowDeleting: false,
             allowEditing: false,
           };
-          // this.schedulerObject.scrollTo('0900');
+          this.dataAvailable = true;
         }
       } else {
         this.toastComponent.showToast(ToastType.error, 'Error',
-          'There was an error while trying to fetch leaves data. PLease try again later');
+          'There was an error while trying to fetch leaves data. Please try again later');
       }
     });
   }
@@ -184,9 +194,9 @@ export class LeavesComponent implements OnInit {
       args.element.setAttribute('style', 'width: 310px');
       const target: HTMLElement = args.element.querySelector('.e-resource-text') as HTMLElement;
       target.innerHTML = '<div class="name">Name</div>' +
-        '<div class="content" matTooltip="Total Leaves Allowed this year">Leaves</div>' +
-        '<div class="content" matTooltip="Leaves Remaining in this year">Taken</div>' +
-        '<div class="content" matTooltip="Leaves left over from last year">Prv. Year</div>';
+        '<div class="content" >Leaves</div>' +
+        '<div class="content" >Taken</div>' +
+        '<div class="content" >Prv. Year</div>';
     }
 
     if ((args.elementType === 'monthCells' || args.elementType === 'dateHeader')) {
@@ -248,14 +258,6 @@ export class LeavesComponent implements OnInit {
     });
     return filteredDates.length > 0;
   }
-
-  // **************************
-  // Helpers for Scheduler component
-  // **************************
-
-  //  ***********************************************************************
-  //  Scheduler event handlers and callbacks
-  //  ***********************************************************************
 
   onCreated() {
     const date: Date = this.schedulerObject.selectedDate;
