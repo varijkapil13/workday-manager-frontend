@@ -1,5 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
 import {OvertimeService} from '../../services/overtime/overtime.service';
 import {Overtime} from '../../types/overtime';
@@ -21,7 +23,7 @@ export class OvertimeComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
 
-  @ViewChild('appToastNotifications', {static: false})
+  @ViewChild('appToastNotifications')
   toastComponent: ToastComponentComponent;
 
   constructor(private overtimeService: OvertimeService, private authenticationService: AuthenticationService) {

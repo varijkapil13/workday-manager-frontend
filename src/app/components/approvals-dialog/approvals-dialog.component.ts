@@ -1,5 +1,8 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 import {AuthenticationService, UserFromJwt} from '../../services/authentication.service';
 import {LeavesService} from '../../services/leaves/leaves.service';
 import {Leave} from '../../types/leave';
@@ -20,7 +23,7 @@ export class ApprovalsDialogComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  @ViewChild('appToastNotifications', {static: false})
+  @ViewChild('appToastNotifications')
   toastComponent: ToastComponentComponent;
 
   loading = true;
@@ -64,7 +67,8 @@ export class ApprovalsDialogComponent implements OnInit {
         if (response.status === 404) {
           this.toastComponent.showToast(ToastType.error, 'Not found', 'The specified leave could not be found. Please try again later');
         } else if (response.status === 403) {
-          this.toastComponent.showToast(ToastType.error, 'Forbidden', 'You do not have permission to approve leaves. Please contact the administrator');
+          this.toastComponent.showToast(ToastType.error, 'Forbidden',
+            'You do not have permission to approve leaves. Please contact the administrator');
         } else {
           this.toastComponent.showToast(ToastType.error, 'Error', 'There was an error approving this leave. Please try again later');
         }

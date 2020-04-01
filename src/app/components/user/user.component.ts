@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from '../../services/authentication.service';
 import {UsersService} from '../../services/users/users.service';
 import {User} from '../../types/user';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {CreateUserDialogComponent} from '../create-user-dialog/create-user-dialog.component';
 import {ToastComponentComponent, ToastType} from '../toast-component/toast-component.component';
 
@@ -15,7 +15,7 @@ export class UserComponent implements OnInit {
 
   userList: User[] = [];
 
-  @ViewChild('appToastNotifications', {static: false})
+  @ViewChild('appToastNotifications')
   toastComponent: ToastComponentComponent;
 
   constructor(private authenticationService: AuthenticationService, private usersService: UsersService, public dialog: MatDialog) {
