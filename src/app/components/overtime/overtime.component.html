@@ -12,10 +12,10 @@
 
   <mat-form-field>
     <mat-label> Select {{isYearlyActive() ? "Year" : "Month"}}</mat-label>
-    <mat-select (ngModelChange)="dropDownValueChanged()" *ngIf="!isYearlyActive()" [(ngModel)]="monthValueSelected">
+    <mat-select  *ngIf="!isYearlyActive()" [(ngModel)]="monthValueSelected" (ngModelChange)="dropDownValueChanged()">
       <mat-option *ngFor="let data of monthlyValues" [value]="data"> {{formatMonth(data)}}</mat-option>
     </mat-select>
-    <mat-select (ngModelChange)="dropDownValueChanged()" *ngIf="isYearlyActive()" [(ngModel)]="yearlyValueSelected">
+    <mat-select *ngIf="isYearlyActive()" [(ngModel)]="yearlyValueSelected" (ngModelChange)="dropDownValueChanged()">
       <mat-option *ngFor="let data of yearlyValues" [value]="data"> {{data}}</mat-option>
     </mat-select>
   </mat-form-field>
