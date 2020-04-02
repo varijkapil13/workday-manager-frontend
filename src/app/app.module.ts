@@ -30,6 +30,7 @@ import {ApprovalsDialogComponent} from './components/approvals-dialog/approvals-
 import {ToastComponentComponent} from './components/toast-component/toast-component.component';
 import {ToastModule} from '@syncfusion/ej2-angular-notifications';
 import {CreateUserDialogComponent} from './components/create-user-dialog/create-user-dialog.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 // import {GanttModule} from '@syncfusion/ej2-angular-gantt';
 
@@ -57,20 +58,21 @@ import {CreateUserDialogComponent} from './components/create-user-dialog/create-
     ToastComponentComponent,
     CreateUserDialogComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    CustomMaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    ScheduleModule,
-    RecurrenceEditorModule,
-    FlexLayoutModule,
-    AppRoutingModule,
-    ToastModule,
-    // GanttModule,
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        CustomMaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        ScheduleModule,
+        RecurrenceEditorModule,
+        FlexLayoutModule,
+        AppRoutingModule,
+        ToastModule,
+        MatButtonToggleModule,
+        // GanttModule,
+    ],
 
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

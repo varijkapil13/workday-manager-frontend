@@ -2,6 +2,24 @@
   <h2 class="page-title">
     Overtime
   </h2>
+
+  <mat-button-toggle-group aria-label="Toggle Calendar Type" name="selectDataType">
+    <mat-button-toggle (click)="setActiveCalendar('monthly')" [checked]="!isYearlyActive()" value="monthly"> Monthly
+    </mat-button-toggle>
+    <mat-button-toggle (click)="setActiveCalendar('yearly')" [checked]="isYearlyActive()" value="yearly"> Yearly
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <mat-form-field>
+    <mat-label> Select {{isYearlyActive() ? "Year" : "Month"}}</mat-label>
+    <mat-select (ngModelChange)="dropDownValueChanged()" *ngIf="!isYearlyActive()" [(ngModel)]="monthValueSelected">
+      <mat-option *ngFor="let data of monthlyValues" [value]="data"> {{formatMonth(data)}}</mat-option>
+    </mat-select>
+    <mat-select (ngModelChange)="dropDownValueChanged()" *ngIf="isYearlyActive()" [(ngModel)]="yearlyValueSelected">
+      <mat-option *ngFor="let data of yearlyValues" [value]="data"> {{data}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <button (click)="recalculateOvertimes()" color="accent"
           mat-flat-button>
     Recalculate {{isUserPrivileged ? 'All Overtimes' : 'Overtime'}}
@@ -11,7 +29,7 @@
 </div>
 <mat-divider></mat-divider>
 <div class="table-container">
-  <mat-table [dataSource]="dataSource" matSort>
+  <mat-table [dataSource]="isYearlyActive() ? yearlyDataSource : monthlyDataSource" matSort>
 
     <!-- Name Column -->
     <ng-container matColumnDef="userName">
@@ -28,7 +46,7 @@
     <!-- Hours Column -->
     <ng-container matColumnDef="hours">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Hours</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.hours}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{convertHoursToText(element.hours)}} </mat-cell>
     </ng-container>
 
     <!-- Last Updated  Column -->
