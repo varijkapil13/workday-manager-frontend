@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/varijkapil13/workday-manager-frontend/compare/v1.1.0...v1.2.0) (2020-04-02)
+
+
+### Features
+
+* change API and views to show yearly and monthly overtimes ([c4085a0](https://github.com/varijkapil13/workday-manager-frontend/commit/c4085a03f7ac45471b8b17c68bd1da8b19e82753))
+
+
+### Bug Fixes
+
+* change order of ngModelChange ([789c82d](https://github.com/varijkapil13/workday-manager-frontend/commit/789c82d1893169db132d9e3bd408010f238890fa))
+* reduced the size of the column in leaves view ([ca1b2a6](https://github.com/varijkapil13/workday-manager-frontend/commit/ca1b2a634756ce84d8e10e356e905db9d7fc3e92))
+
 ## [1.1.0](https://github.com/varijkapil13/workday-manager-frontend/compare/v0.0.6...v1.1.0) (2020-01-29)
 
 
