@@ -2,9 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from '../../services/authentication.service';
 import {UsersService} from '../../services/users/users.service';
 import {User} from '../../types/user';
-import { MatDialog } from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {CreateUserDialogComponent} from '../create-user-dialog/create-user-dialog.component';
 import {ToastComponentComponent, ToastType} from '../toast-component/toast-component.component';
+import {MonthlyHoursDialogComponent} from '../monthly-hours-dialog/monthly-hours-dialog.component';
 
 @Component({
   selector: 'app-user',
@@ -52,5 +53,13 @@ export class UserComponent implements OnInit {
       data: {type: 'editUser', editingUser: user},
       role: 'dialog'
     });
+  }
+
+  editUserHours(user: User) {
+    this.dialog.open(MonthlyHoursDialogComponent, {
+      data: {type: 'editUser', editingUser: user},
+      role: 'dialog'
+    });
+
   }
 }

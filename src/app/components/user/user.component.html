@@ -13,7 +13,7 @@
 <div class="mat-card" fxFlexFill>
   <div fxFlexFill fxLayout="row wrap" fxLayoutGap="5px grid">
     <div *ngFor="let user of userList" fxFlex="33">
-      <app-user-card (onEditClick)="editExistingUser(user)" [showActions]="true" [user]="user"></app-user-card>
+      <app-user-card (onEditClick)="editExistingUser(user)" [showActions]="true" [user]="user" (onHoursEditClick)="editUserHours(user)"></app-user-card>
     </div>
   </div>
 

@@ -18,6 +18,42 @@ export interface CreateNewUserEntity {
   leavesFromLastYear: number;
 }
 
+export interface AddMonthHour {
+  hours: number;
+  year: number;
+  month: number;
+}
+
+interface IUserMonthlyHours {
+  user: User;
+  hours: number;
+  yearMonth: Date;
+
+  readonly getMonth: number;
+  readonly getYear: number;
+
+}
+
+export class UserMonthlyHours implements IUserMonthlyHours {
+  hours: number;
+  user: User;
+  yearMonth: Date;
+
+  constructor(hours: number, user: User, yearMonth: Date) {
+    this.hours = hours;
+    this.user = user;
+    this.yearMonth = yearMonth;
+  }
+
+  get getMonth() {
+    return this.yearMonth.getMonth();
+  }
+
+  get getYear() {
+    return this.yearMonth.getFullYear();
+  }
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -44,5 +80,13 @@ export class UsersService {
 
   public createNewUser(data: CreateNewUserEntity): Observable<HttpResponse<ResetPassword>> {
     return this.http.post<ResetPassword>(`${ApiUrls.users}/create/`, data, {observe: 'response'});
+  }
+
+  public fetchMonthlyUserData(userId: string): Observable<HttpResponse<UserMonthlyHours[]>> {
+    return this.http.get<UserMonthlyHours[]>(`${ApiUrls.monthlyHours}/${userId}`, {observe: 'response'});
+  }
+
+  public updateMonthHourForUser(data: AddMonthHour, userId: string): Observable<HttpResponse<UserMonthlyHours>> {
+    return this.http.post<UserMonthlyHours>(`${ApiUrls.monthlyHours}/${userId}/`, data, {observe: 'response'});
   }
 }

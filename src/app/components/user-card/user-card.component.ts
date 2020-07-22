@@ -11,6 +11,7 @@ export class UserCardComponent implements OnInit {
   @Input() showActions = false;
   @Output() onEditClick = new EventEmitter();
   @Output() onDeleteClick = new EventEmitter();
+  @Output() onHoursEditClick = new EventEmitter();
 
   constructor() {
   }
@@ -20,6 +21,10 @@ export class UserCardComponent implements OnInit {
 
   onEdit() {
     this.onEditClick.emit(this.user);
+  }
+
+  onHoursEdit() {
+    this.onHoursEditClick.emit(this.user);
   }
 
   onDelete() {

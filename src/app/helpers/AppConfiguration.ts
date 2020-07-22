@@ -9,7 +9,8 @@ export const ApiUrls = {
   holidays: baseApiUrl + '/api/holidays',
   leaves: baseApiUrl + '/api/leaves',
   profile: baseApiUrl + '/api/profile',
-  users: baseApiUrl + '/api/users'
+  users: baseApiUrl + '/api/users',
+  monthlyHours: baseApiUrl + '/api/monthly-hours'
 };
 
 export const SidebarLinkValues = {

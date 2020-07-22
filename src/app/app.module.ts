@@ -31,6 +31,7 @@ import {ToastComponentComponent} from './components/toast-component/toast-compon
 import {ToastModule} from '@syncfusion/ej2-angular-notifications';
 import {CreateUserDialogComponent} from './components/create-user-dialog/create-user-dialog.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MonthlyHoursDialogComponent} from './components/monthly-hours-dialog/monthly-hours-dialog.component';
 
 // import {GanttModule} from '@syncfusion/ej2-angular-gantt';
 
@@ -56,7 +57,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     UserCardComponent,
     ApprovalsDialogComponent,
     ToastComponentComponent,
-    CreateUserDialogComponent
+    CreateUserDialogComponent,
+    MonthlyHoursDialogComponent
   ],
     imports: [
         BrowserModule,
