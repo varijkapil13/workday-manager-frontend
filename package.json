@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "analyse": "webpack-bundle-analyzer dist/workday-manager//stats-es2015.json"
+    "analyse": "webpack-bundle-analyzer dist/workday-manager//stats-es2015.json",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
